@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    margin: 0;
 }
 
 .header {
@@ -9,16 +10,20 @@ body {
     color: white;
     padding: 10px 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    margin: 0;
 }
 
 .header .logo {
     flex: 1;
+    display: flex;
+    align-items: center;
 }
 
 .header nav {
     flex: 2;
+    text-align: center;
 }
 
 .header nav ul {
@@ -30,14 +35,33 @@ body {
 }
 
 .header nav ul li {
-    margin-left: 20px;
+    margin: 0 10px;
 }
 
 .header nav ul li a {
     color: white;
     text-decoration: none;
+    font-weight: 600;
 }
 
 .header nav ul li a:hover {
     text-decoration: underline;
+}
+
+.banner-image {
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin: 0;
+}
+
+.banner-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
 }
