@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import banner from "./images/heroimage.jpg";
+import "./App.css";
 
 function App() {
   return (
@@ -11,7 +12,14 @@ function App() {
       <div>
         <Header />
         <div className="banner-image">
-          <img src={banner} alt="Scenic View" style={{ height: "300px" }} />
+          <img src={banner} alt="Scenic View" />
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Enter your destination"
+            />
+          </div>
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
