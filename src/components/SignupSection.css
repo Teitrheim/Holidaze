@@ -1,0 +1,27 @@
+.signup-section {
+    background-color: #6C757D;
+    color: white;
+    padding: 50px 0;
+    margin-bottom: 50px;
+}
+
+.signup-info {
+    display: flex;
+    align-items: center;
+}
+
+.signup-logo {
+    width: 60px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.signup-info h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.signup-info p {
+    margin: 0;
+    font-size: 16px;
+}
