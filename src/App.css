@@ -81,3 +81,44 @@
   color: rgba(0, 0, 0, 0.5);
   font-style: italic;
 }
+
+.explore-image-container {
+  position: relative;
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.explore-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.explore-text-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.explore-text-overlay h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.explore-text-overlay p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.explore-text-overlay .btn {
+  padding: 10px 20px;
+  font-size: 16px;
+}
