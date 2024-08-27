@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import SignupSection from "./components/SignupSection";
+import Footer from "./components/Footer";
 import banner from "./images/heroimage.jpg";
 import ruralImage from "./images/bondhus.jpg";
 import hotelImage from "./images/hotel.jpg";
@@ -20,7 +22,6 @@ function App() {
 
   const handleSearch = () => {
     console.log("Searching for:", searchTerm);
-    // Add your search logic here
   };
 
   const handleKeyPress = (event) => {
@@ -99,6 +100,9 @@ function App() {
             </div>
           </div>
         </section>
+
+        <SignupSection />
+        <Footer />
 
         <Routes>
           <Route path="/" element={<Home />} />
