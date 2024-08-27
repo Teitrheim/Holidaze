@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -7,6 +7,23 @@ import banner from "./images/heroimage.jpg";
 import "./App.css";
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchInput = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearch = () => {
+    console.log("Searching for:", searchTerm);
+   
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <Router>
       <div>
@@ -16,9 +33,15 @@ function App() {
           <div className="search-container">
             <input
               type="text"
-              className="search-input"
+              className="form-control"
               placeholder="Enter your destination"
+              value={searchTerm}
+              onChange={handleSearchInput}
+              onKeyPress={handleKeyPress}
             />
+            <button className="btn btn-primary" onClick={handleSearch}>
+              Search
+            </button>
           </div>
         </div>
         <Routes>
