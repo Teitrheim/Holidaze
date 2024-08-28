@@ -12,8 +12,8 @@ function Accommodation() {
           "https://v2.api.noroff.dev/holidaze/venues",
           {
             headers: {
-              Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVpdF8wMTAxIiwiZW1haWwiOiJ0ZWl0MDEwMUBzdHVkLm5vcm9mZi5ubyIsImlhdCI6MTcyNDg1MTI1Nn0.Ys9Yq2GiePKFpz3AgfG7QXFmQFEaKk9WjTirLCzCRaM`,
-              "X-Noroff-API-Key": "ff40b4c2-3464-423f-a3e7-605c62ae68f8",
+              Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
+              "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
             },
           }
         );
