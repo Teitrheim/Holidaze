@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import "./Accommodation.css";
+import { Card, Row, Col, Container, Button, Form } from "react-bootstrap";
 
 function Accommodation() {
   const [venues, setVenues] = useState([]);
@@ -39,23 +41,43 @@ function Accommodation() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
+    <Container className="accommodation-page">
       <h1>Accommodation</h1>
-      <ul>
+
+      {/* Search and Filter */}
+      <div className="search-filter-container">
+        <Form.Select>
+          <option>Categories</option>
+        </Form.Select>
+        <Form.Control type="text" placeholder="Find by name..." />
+        <Form.Select>
+          <option>Services</option>
+        </Form.Select>
+        <Button>Search</Button>
+      </div>
+
+      {/* Venues List */}
+      <Row className="venues-list">
         {venues.map((venue) => (
-          <li key={venue.id}>
-            <h2>{venue.name}</h2>
-            <p>{venue.description}</p>
-            {venue.media.length > 0 && (
-              <img
-                src={venue.media[0].url}
-                alt={venue.media[0].alt || venue.name}
-              />
-            )}
-          </li>
+          <Col xs={12} md={6} lg={4} key={venue.id} className="mb-4">
+            <Card className="venue-card">
+              {venue.media.length > 0 && (
+                <Card.Img
+                  variant="top"
+                  src={venue.media[0].url}
+                  alt={venue.media[0].alt || venue.name}
+                  className="venue-image"
+                />
+              )}
+              <Card.Body>
+                <Card.Title>{venue.name}</Card.Title>
+                <Card.Text>{venue.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </ul>
-    </div>
+      </Row>
+    </Container>
   );
 }
 
