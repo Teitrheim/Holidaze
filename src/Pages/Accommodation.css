@@ -3,6 +3,35 @@
     text-align: center;
 }
 
+.search-filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-filter-container select,
+.search-filter-container input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.search-filter-container input {
+    width: 300px;
+}
+
+.search-filter-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3f3f6f;
+    color: white;
+    cursor: pointer;
+}
+
 .venues-list {
     display: flex;
     flex-wrap: wrap;
@@ -38,39 +67,4 @@
 .venue-card p {
     font-size: 14px;
     margin: 5px 0;
-}
-
-.search-filter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.search-filter-container select,
-.search-filter-container input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-.search-filter-container input {
-    width: 300px;
-}
-
-.search-filter-container button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: none;
-    background-color: #3f3f6f;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.search-filter-container button:hover {
-    background-color: #2b2b55;
 }
