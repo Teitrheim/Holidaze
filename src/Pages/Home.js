@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import banner from "../images/heroimage.jpg";
 import ruralImage from "../images/bondhus.jpg";
 import hotelImage from "../images/hotel.jpg";
@@ -88,8 +89,20 @@ function Home() {
           <div className="explore-text-overlay">
             <h2>Still figuring out what to do in Hardanger?</h2>
             <p>Enjoy the comfort of these places while you decide.</p>
-            <button className="btn btn-success">See all locations</button>
+            <Link to="/accommodation">
+              <button className="btn btn-success">See all locations</button>
+            </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="join-community my-5">
+        <div className="text-center">
+          <h2>Join the Holidaze Community</h2>
+          <p>Sign up to receive exclusive offers and travel updates</p>
+          <Link to="/register">
+            <button className="btn btn-primary">Sign Up Now</button>
+          </Link>
         </div>
       </section>
     </>
