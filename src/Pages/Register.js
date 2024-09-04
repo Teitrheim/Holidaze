@@ -55,90 +55,93 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleRegistration}>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Bio (Optional):</label>
-        <input
-          type="text"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          maxLength="160"
-        />
-      </div>
-      <div>
-        <label>Avatar URL (Optional):</label>
-        <input
-          type="text"
-          value={avatarUrl}
-          onChange={(e) => setAvatarUrl(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Avatar Alt (Optional):</label>
-        <input
-          type="text"
-          value={avatarAlt}
-          onChange={(e) => setAvatarAlt(e.target.value)}
-          maxLength="120"
-        />
-      </div>
-      <div>
-        <label>Banner URL (Optional):</label>
-        <input
-          type="text"
-          value={bannerUrl}
-          onChange={(e) => setBannerUrl(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Banner Alt (Optional):</label>
-        <input
-          type="text"
-          value={bannerAlt}
-          onChange={(e) => setBannerAlt(e.target.value)}
-          maxLength="120"
-        />
-      </div>
-      <div>
-        <label>Venue Manager:</label>
-        <input
-          type="checkbox"
-          checked={venueManager}
-          onChange={(e) => setVenueManager(e.target.checked)}
-        />
-      </div>
-      <button type="submit">Register</button>
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleRegistration}>
+        <h2>Register</h2>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Bio (Optional):</label>
+          <input
+            type="text"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            maxLength="160"
+          />
+        </div>
+        <div>
+          <label>Avatar URL (Optional):</label>
+          <input
+            type="text"
+            value={avatarUrl}
+            onChange={(e) => setAvatarUrl(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Avatar Alt (Optional):</label>
+          <input
+            type="text"
+            value={avatarAlt}
+            onChange={(e) => setAvatarAlt(e.target.value)}
+            maxLength="120"
+          />
+        </div>
+        <div>
+          <label>Banner URL (Optional):</label>
+          <input
+            type="text"
+            value={bannerUrl}
+            onChange={(e) => setBannerUrl(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Banner Alt (Optional):</label>
+          <input
+            type="text"
+            value={bannerAlt}
+            onChange={(e) => setBannerAlt(e.target.value)}
+            maxLength="120"
+          />
+        </div>
+        <div>
+          <label>Venue Manager:</label>
+          <input
+            type="checkbox"
+            checked={venueManager}
+            onChange={(e) => setVenueManager(e.target.checked)}
+          />
+        </div>
+        <button type="submit">Register</button>
 
-      {/* Display error message if any */}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-    </form>
+        {/* Error message if any */}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      </form>
+    </div>
   );
 }
 

@@ -1,36 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Dashboard.css";
+import "./Profile.css"; 
 
-function Dashboard() {
+function Profile() {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
-    } else {
-      // Redirect to login if no user data is found
-      navigate("/login");
     }
-  }, [navigate]);
+  }, []);
 
   return (
-    <div className="dashboard-container">
-      <h1>Welcome to your Dashboard</h1>
+    <div className="profile-container">
+      <h1>Profile</h1>
       {user ? (
         <div>
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
+          {user.bio && <p>Bio: {user.bio}</p>}
           {user.avatar && <img src={user.avatar.url} alt={user.avatar.alt} />}
-          <button onClick={() => navigate("/profile")}>Go to Profile</button>
         </div>
       ) : (
-        <p>Loading user info...</p>
+        <p>Loading profile info...</p>
       )}
     </div>
   );
 }
 
-export default Dashboard;
+export default Profile;
