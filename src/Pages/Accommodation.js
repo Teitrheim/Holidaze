@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Accommodation.css";
-import { Card, Row, Col, Container, Button, Form } from "react-bootstrap";
 
 function Accommodation() {
   const [venues, setVenues] = useState([]);
@@ -41,43 +40,47 @@ function Accommodation() {
   if (error) return <p>{error}</p>;
 
   return (
-    <Container className="accommodation-page">
+    <div className="accommodation-page container">
       <h1>Accommodation</h1>
-
-      {/* Search and Filter */}
-      <div className="search-filter-container">
-        <Form.Select>
-          <option>Categories</option>
-        </Form.Select>
-        <Form.Control type="text" placeholder="Find by name..." />
-        <Form.Select>
-          <option>Services</option>
-        </Form.Select>
-        <Button>Search</Button>
+      <div className="search-filter-container row mb-4">
+        <div className="col-12 col-md-4 mb-3 mb-md-0">
+          <select className="form-control">
+            <option>Categories</option>
+          </select>
+        </div>
+        <div className="col-12 col-md-4 mb-3 mb-md-0">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Find by name..."
+          />
+        </div>
+        <div className="col-12 col-md-4">
+          <select className="form-control">
+            <option>Services</option>
+            {/* Add other services here */}
+          </select>
+        </div>
       </div>
-
-      {/* Venues List */}
-      <Row className="venues-list">
+      <div className="venues-list row">
         {venues.map((venue) => (
-          <Col xs={12} md={6} lg={4} key={venue.id} className="mb-4">
-            <Card className="venue-card">
-              {venue.media.length > 0 && (
-                <Card.Img
-                  variant="top"
-                  src={venue.media[0].url}
-                  alt={venue.media[0].alt || venue.name}
-                  className="venue-image"
-                />
-              )}
-              <Card.Body>
-                <Card.Title>{venue.name}</Card.Title>
-                <Card.Text>{venue.description}</Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
+          <div
+            className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+            key={venue.id}
+          >
+            <div className="venue-card h-100">
+              <img
+                src={venue.media[0]?.url}
+                alt={venue.media[0]?.alt || venue.name}
+                className="venue-image"
+              />
+              <h2>{venue.name}</h2>
+              <p>{venue.description}</p>
+            </div>
+          </div>
         ))}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 }
 
