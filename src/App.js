@@ -7,6 +7,8 @@ import Accommodation from "./pages/Accommodation";
 import VenuePage from "./pages/VenuePage";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./components/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -21,6 +23,8 @@ function App() {
           <Route path="/accommodation" element={<Accommodation />} />
           <Route path="/venue/:id" element={<VenuePage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
       </div>
