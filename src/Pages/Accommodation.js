@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Accommodation.css";
+import { Link } from "react-router-dom";
 
 function Accommodation() {
   const [venues, setVenues] = useState([]);
@@ -83,13 +84,15 @@ function Accommodation() {
       <div className="venues-list">
         {filteredVenues.map((venue) => (
           <div className="venue-card" key={venue.id}>
-            <img
-              className="venue-image"
-              src={venue.media[0]?.url}
-              alt={venue.media[0]?.alt || venue.name}
-            />
-            <h2>{venue.name}</h2>
-            <p>{venue.description}</p>
+            <Link to={`/venue/${venue.id}`}>
+              <img
+                className="venue-image"
+                src={venue.media[0]?.url}
+                alt={venue.media[0]?.alt || venue.name}
+              />
+              <h2>{venue.name}</h2>
+              <p>{venue.description}</p>
+            </Link>
           </div>
         ))}
       </div>
