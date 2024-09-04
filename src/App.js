@@ -6,6 +6,7 @@ import About from "./pages/About";
 import SignupSection from "./components/SignupSection";
 import Footer from "./components/Footer";
 import Accommodation from "./pages/Accommodation";
+import VenuePage from "./pages/VenuePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/accommodation" element={<Accommodation />} />
+          <Route path="/venue/:id" element={<VenuePage />} />
         </Routes>
         <SignupSection />
         <Footer />
