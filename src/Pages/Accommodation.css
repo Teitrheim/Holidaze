@@ -3,6 +3,35 @@
     text-align: center;
 }
 
+.search-filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-filter-container select,
+.search-filter-container input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.search-filter-container input {
+    width: 300px;
+}
+
+.search-filter-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3f3f6f;
+    color: white;
+    cursor: pointer;
+}
+
 .venues-list {
     display: flex;
     flex-wrap: wrap;
@@ -10,14 +39,13 @@
 }
 
 .venue-card {
+    width: 300px;
+    margin: 20px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
     transition: box-shadow 0.3s ease;
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .venue-card:hover {
@@ -39,55 +67,4 @@
 .venue-card p {
     font-size: 14px;
     margin: 5px 0;
-}
-
-.search-filter-container select,
-.search-filter-container input {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    width: 100%;
-}
-
-.search-filter-container button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: none;
-    background-color: #3f3f6f;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-.search-filter-container button:hover {
-    background-color: #2b2b55;
-}
-
-@media (max-width: 576px) {
-    .venue-card {
-        margin: 10px;
-        padding: 5px;
-    }
-
-    .venue-card h2 {
-        font-size: 16px;
-        margin: 5px 0;
-    }
-
-    .venue-card p {
-        font-size: 12px;
-    }
-}
-
-@media (min-width: 768px) {
-    .venues-list {
-        justify-content: start;
-    }
-
-    .venue-card {
-        margin-bottom: 20px;
-    }
 }
