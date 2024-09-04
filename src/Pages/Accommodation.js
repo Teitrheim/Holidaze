@@ -5,7 +5,11 @@ function Accommodation() {
   const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [category, setCategory] = useState("");
+  const [services, setServices] = useState("");
 
+  // Fetching the venues from API
   useEffect(() => {
     const fetchVenues = async () => {
       try {
@@ -24,7 +28,7 @@ function Accommodation() {
         }
 
         const data = await response.json();
-        setVenues(data.data);
+        setVenues(data.data); // Update the venues state
         setLoading(false);
       } catch (error) {
         console.error("Error fetching venues:", error);
@@ -36,47 +40,56 @@ function Accommodation() {
     fetchVenues();
   }, []);
 
+  // Filtering and searching venues
+  const filteredVenues = venues.filter((venue) =>
+    venue.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Rendering logic
   if (loading) return <p>Loading venues...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="accommodation-page container">
+    <div className="accommodation-page">
       <h1>Accommodation</h1>
-      <div className="search-filter-container row mb-4">
-        <div className="col-12 col-md-4 mb-3 mb-md-0">
-          <select className="form-control">
-            <option>Categories</option>
-          </select>
-        </div>
-        <div className="col-12 col-md-4 mb-3 mb-md-0">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Find by name..."
-          />
-        </div>
-        <div className="col-12 col-md-4">
-          <select className="form-control">
-            <option>Services</option>
-            {/* Add other services here */}
-          </select>
-        </div>
+
+      {/* Search and Filter section */}
+      <div className="search-filter-container">
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">Categories</option>
+          <option value="hotel">Hotels</option>
+          <option value="rural">Rural</option>
+          {/* Add more options here! */}
+        </select>
+
+        <input
+          type="text"
+          placeholder="Find by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select value={services} onChange={(e) => setServices(e.target.value)}>
+          <option value="">Services</option>
+          <option value="wifi">Wi-Fi</option>
+          <option value="parking">Parking</option>
+          {/* Add more service options */}
+        </select>
+
+        <button className="btn btn-primary">Search</button>
       </div>
-      <div className="venues-list row">
-        {venues.map((venue) => (
-          <div
-            className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-            key={venue.id}
-          >
-            <div className="venue-card h-100">
-              <img
-                src={venue.media[0]?.url}
-                alt={venue.media[0]?.alt || venue.name}
-                className="venue-image"
-              />
-              <h2>{venue.name}</h2>
-              <p>{venue.description}</p>
-            </div>
+
+      {/* Display Venues */}
+      <div className="venues-list">
+        {filteredVenues.map((venue) => (
+          <div className="venue-card" key={venue.id}>
+            <img
+              className="venue-image"
+              src={venue.media[0]?.url}
+              alt={venue.media[0]?.alt || venue.name}
+            />
+            <h2>{venue.name}</h2>
+            <p>{venue.description}</p>
           </div>
         ))}
       </div>
