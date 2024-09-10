@@ -9,7 +9,9 @@ function Dashboard() {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      console.log("User from localStorage:", parsedUser);
     } else {
       // Redirect to login if no user data is found
       navigate("/login");
@@ -21,9 +23,11 @@ function Dashboard() {
       <h1>Welcome to your Dashboard</h1>
       {user ? (
         <div>
-          <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p>
-          {user.avatar && <img src={user.avatar.url} alt={user.avatar.alt} />}
+          <p>Name: {user.data.name}</p>
+          <p>Email: {user.data.email}</p>
+          {user.data.avatar && (
+            <img src={user.data.avatar.url} alt={user.data.avatar.alt} />
+          )}
           <button onClick={() => navigate("/profile")}>Go to Profile</button>
         </div>
       ) : (

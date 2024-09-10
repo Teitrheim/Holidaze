@@ -1,40 +1,32 @@
-.dashboard-container {
+.profile-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    height: 80vh;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    padding: 20px;
 }
 
-.dashboard-container h1 {
-    font-size: 3rem;
+.profile-container h1 {
+    font-size: 2.5rem;
     margin-bottom: 20px;
 }
 
-.dashboard-container p {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+.profile-container p {
+    font-size: 1.25rem;
+    margin: 10px 0;
 }
 
-.dashboard-container .avatar-img {
+.profile-container img {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
     object-fit: cover;
+    border-radius: 50%;
     margin-bottom: 20px;
 }
 
-.dashboard-container button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.dashboard-container button:hover {
-    background-color: #0056b3;
+.profile-container .bio {
+    font-size: 1rem;
+    font-style: italic;
+    margin: 10px 0;
 }

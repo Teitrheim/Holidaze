@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css"; 
+import "./Profile.css";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -7,7 +7,9 @@ function Profile() {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      console.log("User from localStorage:", parsedUser);
     }
   }, []);
 
@@ -16,10 +18,12 @@ function Profile() {
       <h1>Profile</h1>
       {user ? (
         <div>
-          <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p>
-          {user.bio && <p>Bio: {user.bio}</p>}
-          {user.avatar && <img src={user.avatar.url} alt={user.avatar.alt} />}
+          <p>Name: {user.data.name}</p>
+          <p>Email: {user.data.email}</p>
+          {user.data.bio && <p>Bio: {user.data.bio}</p>}
+          {user.data.avatar && (
+            <img src={user.data.avatar.url} alt={user.data.avatar.alt} />
+          )}
         </div>
       ) : (
         <p>Loading profile info...</p>

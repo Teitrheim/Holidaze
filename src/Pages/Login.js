@@ -29,13 +29,14 @@ function Login() {
         throw new Error("Login failed");
       }
 
-      const data = await response.json();
+      const { data } = await response.json(); // Extract the data object
       console.log("Login successful:", data);
 
-      // Store user data
+      // Store the user data (data object) in localStorage
       localStorage.setItem("user", JSON.stringify(data));
+      console.log("Stored user:", localStorage.getItem("user"));
 
-      // Redirect to dashboard
+      // Redirect to dashboard or any page after login
       navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
