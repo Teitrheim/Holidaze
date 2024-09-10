@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  // Check if user is logged in (from localStorage)
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login"); // Redirect to login page after logout
   };
 
   return (
@@ -35,11 +52,34 @@ function Header() {
               Contact Us
             </Link>
           </li>
-          <li>
-            <Link to="/login" onClick={toggleMenu}>
-              Login
-            </Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link to="/profile" onClick={toggleMenu}>
+                  {user.avatar ? (
+                    <img
+                      src={user.avatar.url}
+                      alt={user.avatar.alt}
+                      className="header-avatar"
+                    />
+                  ) : (
+                    `Welcome, ${user.name}`
+                  )}
+                </Link>
+              </li>
+              <li>
+                <button className="logout-btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link to="/login" onClick={toggleMenu}>
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
