@@ -12,12 +12,12 @@ function Accommodation() {
   const searchTermFromURL = searchParams.get("search") || "";
   const [searchTerm, setSearchTerm] = useState(searchTermFromURL);
   const [category, setCategory] = useState(categoryFromURL);
-  const [services, setServices] = useState(""); // Service filter
+  const [services, setServices] = useState(""); 
 
   useEffect(() => {
     const fetchVenues = async () => {
       try {
-        let url = "https://v2.api.noroff.dev/holidaze/venues"; //
+        let url = "https://v2.api.noroff.dev/holidaze/venues";
 
         if (searchTerm) {
           url = `https://v2.api.noroff.dev/holidaze/venues/search?q=${encodeURIComponent(
