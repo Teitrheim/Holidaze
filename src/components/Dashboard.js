@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link
+import { useNavigate, Link } from "react-router-dom";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -18,10 +18,9 @@ function Dashboard() {
         fetchUserVenues(parsedUser);
       }
     } else {
-      // Redirect to login if no user data is found
       navigate("/login");
     }
-  }, [navigate]);
+  }, []);
 
   const fetchUserVenues = async (user) => {
     try {
@@ -61,8 +60,7 @@ function Dashboard() {
               style={{ width: "150px", height: "150px", borderRadius: "50%" }}
             />
           )}
-          {/* If the user is a venue manager, display their venues */}
-          {user.venueManager && (
+          {user.venueManager ? (
             <div className="user-venues">
               <h2>Your Venues</h2>
               <Link to="/create-venue">
@@ -81,6 +79,13 @@ function Dashboard() {
               ) : (
                 <p>You have not created any venues yet.</p>
               )}
+            </div>
+          ) : (
+            <div className="customer-options">
+              <h2>Your Bookings</h2>
+              <Link to="/my-bookings">
+                <button className="btn btn-primary">View My Bookings</button>
+              </Link>
             </div>
           )}
           <button onClick={() => navigate("/profile")}>Go to Profile</button>

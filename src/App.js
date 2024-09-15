@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import VenueBookings from "./pages/VenueBookings";
 import MyBookings from "./pages/MyBookings";
 import EditVenue from "./pages/EditVenue";
+import ProfileEdit from "./pages/ProfileEdit";
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-venue" element={<CreateVenue />} />
+          <Route
+            path="/profile-edit"
+            element={
+              <ProtectedRoute>
+                <ProfileEdit />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/edit-venue/:id"
             element={

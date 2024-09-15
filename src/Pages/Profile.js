@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -17,31 +18,22 @@ function Profile() {
     }
   }, [navigate]);
 
-  if (!user) {
-    return <p>Loading profile...</p>;
-  }
+  if (!user) return <p>Please log in to view your profile.</p>;
 
   return (
     <div className="profile-container">
-      <h1>Your Profile</h1>
-      {user ? (
-        <div>
-          <p>Name: {user.name || "No name available"}</p>
-          <p>Email: {user.email || "No email available"}</p>
-          {user.avatar && (
-            <img
-              src={user.avatar.url}
-              alt={user.avatar.alt || "User Avatar"}
-              style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-            />
-          )}
-          <button onClick={() => navigate("/dashboard")}>
-            Back to Dashboard
-          </button>
-        </div>
-      ) : (
-        <p>No user info available</p>
+      <h1>{user.name}'s Profile</h1>
+      {user.avatar && user.avatar.url && (
+        <img
+          src={user.avatar.url}
+          alt={user.avatar.alt || "User Avatar"}
+          className="profile-avatar"
+        />
       )}
+      <p>Email: {user.email}</p>
+      <Link to="/profile-edit">
+        <button>Edit Profile</button>
+      </Link>
     </div>
   );
 }

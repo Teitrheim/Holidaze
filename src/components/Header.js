@@ -1,3 +1,4 @@
+// src/components/Header.js
 import React, { useState, useEffect } from "react";
 import logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,19 +13,28 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
-  // Check if user is logged in from localStorage
+  // Check if user is logged in (from localStorage)
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      } else {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/login");
+    navigate("/login"); // Redirect to login page after logout
   };
 
   return (
@@ -56,10 +66,10 @@ function Header() {
             <>
               <li>
                 <Link to="/profile" onClick={() => setIsOpen(false)}>
-                  {user.avatar ? (
+                  {user.avatar && user.avatar.url ? (
                     <img
                       src={user.avatar.url}
-                      alt={user.avatar.alt}
+                      alt={user.avatar.alt || "User Avatar"}
                       className="header-avatar"
                     />
                   ) : (
@@ -68,7 +78,13 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <button className="logout-btn" onClick={handleLogout}>
+                <button
+                  className="logout-btn"
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                >
                   Logout
                 </button>
               </li>
