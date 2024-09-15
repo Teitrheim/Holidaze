@@ -23,10 +23,14 @@ function Dashboard() {
       <h1>Welcome to your Dashboard</h1>
       {user ? (
         <div>
-          <p>Name: {user.data.name}</p>
-          <p>Email: {user.data.email}</p>
-          {user.data.avatar && (
-            <img src={user.data.avatar.url} alt={user.data.avatar.alt} />
+          <p>Name: {user.name}</p>
+          <p>Email: {user.email}</p>
+          {user.avatar && (
+            <img
+              src={user.avatar.url}
+              alt={user.avatar.alt || "User Avatar"}
+              style={{ width: "150px", height: "150px", borderRadius: "50%" }}
+            />
           )}
           <button onClick={() => navigate("/profile")}>Go to Profile</button>
         </div>

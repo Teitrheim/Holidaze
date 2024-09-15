@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./VenuePage.css";
 import Carousel from "react-bootstrap/Carousel";
 import Calendar from "react-calendar";
@@ -7,6 +7,7 @@ import "react-calendar/dist/Calendar.css";
 
 function VenuePage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [venue, setVenue] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,6 +21,15 @@ function VenuePage() {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
   const [availability, setAvailability] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check if the user is logged in
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   // Fetch the venue details
   useEffect(() => {
@@ -126,6 +136,13 @@ function VenuePage() {
   // Handle review submission
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isAuthenticated) {
+      alert("You must be logged in to submit a review.");
+      navigate("/login");
+      return;
+    }
+
     const reviewData = {
       rating,
       comment: reviewText,
@@ -133,7 +150,7 @@ function VenuePage() {
     };
 
     try {
-      // For now, let's store reviews in localStorage
+      // Storing reviews in localStorage for now
       const storedReviews =
         JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
       const updatedReviews = [...storedReviews, reviewData];
@@ -179,7 +196,6 @@ function VenuePage() {
   return (
     <div className="venue-page">
       <div className="venue-card">
-        {/* Carousel for images */}
         {venue && venue.media && venue.media.length > 0 ? (
           <div className="venue-carousel">{renderCarousel()}</div>
         ) : (
@@ -272,32 +288,42 @@ function VenuePage() {
             <p>No reviews yet.</p>
           )}
 
-          {/* Review Submission Form */}
-          <form onSubmit={handleReviewSubmit} className="review-form">
-            <h3>Leave a Review</h3>
-            <div>
-              <label htmlFor="rating">Rating:</label>
-              <input
-                type="number"
-                id="rating"
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-                min="1"
-                max="5"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="reviewText">Your Review:</label>
-              <textarea
-                id="reviewText"
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Submit Review</button>
-          </form>
+          {isAuthenticated ? (
+            <form onSubmit={handleReviewSubmit} className="review-form">
+              <h3>Leave a Review</h3>
+              <div>
+                <label htmlFor="rating">Rating:</label>
+                <input
+                  type="number"
+                  id="rating"
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                  min="1"
+                  max="5"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="reviewText">Your Review:</label>
+                <textarea
+                  id="reviewText"
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit">Submit Review</button>
+            </form>
+          ) : (
+            <p>
+              <button
+                onClick={() => navigate("/login")}
+                className="btn btn-primary"
+              >
+                Log in to leave a review
+              </button>
+            </p>
+          )}
         </div>
       </div>
     </div>
