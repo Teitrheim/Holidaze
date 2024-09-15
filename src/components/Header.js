@@ -1,4 +1,3 @@
-// src/components/Header.js
 import React, { useState, useEffect } from "react";
 import logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
-  // Check if user is logged in (from localStorage)
   useEffect(() => {
     const handleStorageChange = () => {
       const storedUser = localStorage.getItem("user");
