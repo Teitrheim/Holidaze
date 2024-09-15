@@ -12,7 +12,7 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
-  // Check if user is logged in (from localStorage)
+  // Check if user is logged in from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -24,7 +24,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login");
   };
 
   return (
@@ -38,24 +38,24 @@ function Header() {
       <nav className={`nav ${isOpen ? "open" : ""}`}>
         <ul>
           <li>
-            <Link to="/" onClick={toggleMenu}>
+            <Link to="/" onClick={() => setIsOpen(false)}>
               Home
             </Link>
           </li>
           <li>
-            <Link to="/accommodation" onClick={toggleMenu}>
+            <Link to="/accommodation" onClick={() => setIsOpen(false)}>
               Accommodation
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={toggleMenu}>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
               Contact Us
             </Link>
           </li>
           {user ? (
             <>
               <li>
-                <Link to="/profile" onClick={toggleMenu}>
+                <Link to="/profile" onClick={() => setIsOpen(false)}>
                   {user.avatar ? (
                     <img
                       src={user.avatar.url}
@@ -75,7 +75,7 @@ function Header() {
             </>
           ) : (
             <li>
-              <Link to="/login" onClick={toggleMenu}>
+              <Link to="/login" onClick={() => setIsOpen(false)}>
                 Login
               </Link>
             </li>

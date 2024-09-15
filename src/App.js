@@ -12,7 +12,11 @@ import Profile from "./pages/Profile";
 import Dashboard from "./components/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
+import CreateVenue from "./pages/CreateVenue";
+import ProtectedRoute from "./components/ProtectedRoute";
+import VenueBookings from "./pages/VenueBookings";
+import MyBookings from "./pages/MyBookings";
+import EditVenue from "./pages/EditVenue";
 
 function App() {
   return (
@@ -28,6 +32,39 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-venue" element={<CreateVenue />} />
+          <Route
+            path="/edit-venue/:id"
+            element={
+              <ProtectedRoute isVenueManager={true}>
+                <EditVenue />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-bookings"
+            element={
+              <ProtectedRoute>
+                <MyBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/venue-bookings"
+            element={
+              <ProtectedRoute isVenueManager={true}>
+                <VenueBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/create-venue"
+            element={
+              <ProtectedRoute isVenueManager={true}>
+                <CreateVenue />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </div>
