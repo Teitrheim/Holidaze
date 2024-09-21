@@ -1,5 +1,8 @@
+// src/pages/ProfileEdit.js
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./ProfileEdit.css";
 
 function ProfileEdit() {
   const [user, setUser] = useState(null);
@@ -14,8 +17,8 @@ function ProfileEdit() {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
       if (parsedUser.avatar) {
-        setAvatarUrl(parsedUser.avatar.url);
-        setAvatarAlt(parsedUser.avatar.alt);
+        setAvatarUrl(parsedUser.avatar.url || "");
+        setAvatarAlt(parsedUser.avatar.alt || "");
       }
     } else {
       navigate("/login");
@@ -52,7 +55,7 @@ function ProfileEdit() {
       localStorage.setItem("user", JSON.stringify(data.data));
       setUser(data.data);
       alert("Profile updated successfully!");
-      navigate("/profile"); // Or wherever you want to redirect
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("An error occurred while updating the profile.");
@@ -65,7 +68,7 @@ function ProfileEdit() {
     <div className="profile-edit-container">
       <h1>Edit Profile</h1>
       <form onSubmit={handleProfileUpdate}>
-        <div>
+        <div className="form-group">
           <label>Avatar URL:</label>
           <input
             type="text"
@@ -73,7 +76,7 @@ function ProfileEdit() {
             onChange={(e) => setAvatarUrl(e.target.value)}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Avatar Alt Text:</label>
           <input
             type="text"
@@ -81,7 +84,9 @@ function ProfileEdit() {
             onChange={(e) => setAvatarAlt(e.target.value)}
           />
         </div>
-        <button type="submit">Update Avatar</button>
+        <button type="submit" className="btn btn-primary">
+          Update Avatar
+        </button>
       </form>
     </div>
   );

@@ -45,6 +45,14 @@ function App() {
             }
           />
           <Route
+            path="/profile-edit"
+            element={
+              <ProtectedRoute>
+                <ProfileEdit />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/edit-venue/:id"
             element={
               <ProtectedRoute isVenueManager={true}>

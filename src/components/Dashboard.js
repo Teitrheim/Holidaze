@@ -20,7 +20,7 @@ function Dashboard() {
     } else {
       navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
   const fetchUserVenues = async (user) => {
     try {
@@ -46,6 +46,38 @@ function Dashboard() {
     }
   };
 
+  const handleDeleteVenue = async (venueId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this venue?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(
+        `https://v2.api.noroff.dev/holidaze/venues/${venueId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.accessToken}`,
+            "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete venue");
+      }
+
+      // Update the venues state after deletion
+      setVenues(venues.filter((venue) => venue.id !== venueId));
+      alert("Venue deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting venue:", error);
+      alert("An error occurred while deleting the venue.");
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <h1>Welcome to your Dashboard</h1>
@@ -53,7 +85,7 @@ function Dashboard() {
         <div>
           <p>Name: {user.name}</p>
           <p>Email: {user.email}</p>
-          {user.avatar && (
+          {user.avatar && user.avatar.url && (
             <img
               src={user.avatar.url}
               alt={user.avatar.alt || "User Avatar"}
@@ -74,6 +106,12 @@ function Dashboard() {
                     <Link to={`/edit-venue/${venue.id}`}>
                       <button className="btn btn-secondary">Edit Venue</button>
                     </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteVenue(venue.id)}
+                    >
+                      Delete Venue
+                    </button>
                   </div>
                 ))
               ) : (
@@ -86,9 +124,15 @@ function Dashboard() {
               <Link to="/my-bookings">
                 <button className="btn btn-primary">View My Bookings</button>
               </Link>
+              <Link to="/accommodation">
+                <button className="btn btn-secondary">Book a Venue</button>
+              </Link>
             </div>
           )}
           <button onClick={() => navigate("/profile")}>Go to Profile</button>
+          <button onClick={() => navigate("/profile-edit")}>
+            Edit Profile / Update Avatar
+          </button>
         </div>
       ) : (
         <p>Loading user info...</p>

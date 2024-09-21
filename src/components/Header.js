@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../images/logo.png";
 import "./Header.css";
 
 function Header() {
@@ -12,20 +12,12 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
+  // Check if user is logged in (from localStorage)
   useEffect(() => {
-    const handleStorageChange = () => {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      } else {
-        setUser(null);
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
   }, []);
 
   // Handle logout
@@ -38,7 +30,9 @@ function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <img src={logo} alt="Holidaze Logo" style={{ height: "50px" }} />
+        <Link to="/">
+          <img src={logo} alt="Holidaze Logo" style={{ height: "50px" }} />
+        </Link>
       </div>
       <div className="menu-icon" onClick={toggleMenu}>
         <div className={`hamburger ${isOpen ? "open" : ""}`}></div>
@@ -62,8 +56,8 @@ function Header() {
           </li>
           {user ? (
             <>
-              <li>
-                <Link to="/profile" onClick={() => setIsOpen(false)}>
+              <li className="user-info">
+                <Link to="/dashboard" onClick={() => setIsOpen(false)}>
                   {user.avatar && user.avatar.url ? (
                     <img
                       src={user.avatar.url}
@@ -71,7 +65,7 @@ function Header() {
                       className="header-avatar"
                     />
                   ) : (
-                    `Welcome, ${user.name}`
+                    <span>Welcome, {user.name}</span>
                   )}
                 </Link>
               </li>
