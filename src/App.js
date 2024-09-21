@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserProvider } from "./contexts/UserContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -22,72 +23,74 @@ import ProfileEdit from "./pages/ProfileEdit";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/accommodation" element={<Accommodation />} />
-          <Route path="/venue/:id" element={<VenuePage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/create-venue" element={<CreateVenue />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/profile-edit"
-            element={
-              <ProtectedRoute>
-                <ProfileEdit />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile-edit"
-            element={
-              <ProtectedRoute>
-                <ProfileEdit />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/edit-venue/:id"
-            element={
-              <ProtectedRoute isVenueManager={true}>
-                <EditVenue />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/my-bookings"
-            element={
-              <ProtectedRoute>
-                <MyBookings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/venue-bookings"
-            element={
-              <ProtectedRoute isVenueManager={true}>
-                <VenueBookings />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/create-venue"
-            element={
-              <ProtectedRoute isVenueManager={true}>
-                <CreateVenue />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <UserProvider>
+      <Router>
+        <div>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/accommodation" element={<Accommodation />} />
+            <Route path="/venue/:id" element={<VenuePage />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/create-venue" element={<CreateVenue />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/profile-edit"
+              element={
+                <ProtectedRoute>
+                  <ProfileEdit />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile-edit"
+              element={
+                <ProtectedRoute>
+                  <ProfileEdit />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/edit-venue/:id"
+              element={
+                <ProtectedRoute isVenueManager={true}>
+                  <EditVenue />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-bookings"
+              element={
+                <ProtectedRoute>
+                  <MyBookings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/venue-bookings"
+              element={
+                <ProtectedRoute isVenueManager={true}>
+                  <VenueBookings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create-venue"
+              element={
+                <ProtectedRoute isVenueManager={true}>
+                  <CreateVenue />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 

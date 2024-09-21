@@ -1,30 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import logo from "../images/logo.png";
 import "./Header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  // Check if user is logged in (from localStorage)
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
   // Handle logout
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login");
   };
 
   return (

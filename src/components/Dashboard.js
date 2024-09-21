@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const [user, setUser] = useState(null);
+  const { user } = useContext(UserContext);
   const [venues, setVenues] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
+    if (user) {
+      console.log("User in Dashboard:", user);
+
+      if (!user.accessToken) {
+        console.error("Access token is missing");
+        navigate("/login");
+        return;
+      }
 
       // Fetch venues owned by the user if they are a venue manager
-      if (parsedUser.venueManager) {
-        fetchUserVenues(parsedUser);
+      if (user.venueManager) {
+        fetchUserVenues(user);
       }
     } else {
       navigate("/login");
     }
-  }, [navigate]);
+  }, [navigate, user]);
 
   const fetchUserVenues = async (user) => {
     try {
@@ -36,10 +41,15 @@ function Dashboard() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch user venues");
+        const errorData = await response.json();
+        console.error("Error response:", errorData); // Log the error response
+        throw new Error(
+          `Failed to fetch user venues: ${errorData.errors[0].message}`
+        );
       }
 
       const data = await response.json();
+      console.log("Fetched venues:", data); // Debugging
       setVenues(data.data);
     } catch (error) {
       console.error("Error fetching user venues:", error);

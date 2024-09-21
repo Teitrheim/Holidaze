@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import "./Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
@@ -35,7 +37,7 @@ function Login() {
       console.log("Login successful:", loginResponse);
 
       // Extract accessToken and user name from login response
-      const { accessToken, name } = loginResponse.data;
+      const { accessToken, name, email } = loginResponse.data;
 
       // Fetch user profile to get venueManager property
       const profileResponse = await fetch(
@@ -59,14 +61,19 @@ function Login() {
 
       // Combine login data and profile data
       const userData = {
-        ...loginResponse.data,
+        name,
+        email,
+        accessToken, 
         venueManager: profileData.data.venueManager,
         bio: profileData.data.bio,
         avatar: profileData.data.avatar,
         banner: profileData.data.banner,
       };
 
+      console.log("User data to be stored:", userData);
+
       localStorage.setItem("user", JSON.stringify(userData));
+      setUser(userData);
 
       // Redirect to dashboard
       navigate("/dashboard");
