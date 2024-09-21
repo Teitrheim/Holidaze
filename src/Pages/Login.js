@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
@@ -66,7 +66,6 @@ function Login() {
         banner: profileData.data.banner,
       };
 
-      // Store user data in localStorage
       localStorage.setItem("user", JSON.stringify(userData));
 
       // Redirect to dashboard
@@ -100,9 +99,12 @@ function Login() {
           />
         </div>
         <button type="submit">Login</button>
-
-        {/* Error message*/}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        <div className="register-link">
+          <p>
+            Don't have an account? <Link to="/register">Register here</Link>
+          </p>
+        </div>
       </form>
     </div>
   );

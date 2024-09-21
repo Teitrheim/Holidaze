@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import Accommodation from "./pages/Accommodation";
 import VenuePage from "./pages/VenuePage";
 import Footer from "./components/Footer";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-venue" element={<CreateVenue />} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="/profile-edit"
             element={
