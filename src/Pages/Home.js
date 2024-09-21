@@ -6,17 +6,17 @@ import hotelImage from "../images/hotel.jpg";
 import cultureImage from "../images/city.jpg";
 import hardangerImage from "../images/vøringsfossen.jpg";
 import "../App.css";
+import "./Home.css";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate(); // useNavigate to redirect
+  const navigate = useNavigate();
 
   const handleSearchInput = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const handleSearch = () => {
-    // Redirect to accommodation page with the search term as a query parameter
     if (searchTerm) {
       navigate(`/accommodation?search=${encodeURIComponent(searchTerm)}`);
     }
@@ -53,10 +53,10 @@ function Home() {
           <div className="row">
             <div className="col-md-4">
               <div className="card">
-                <Link to="/accommodation?category=rural">
+                <Link to="/accommodation?category=rural" className="card-link">
                   <img
                     src={ruralImage}
-                    className="card-img-top"
+                    className="card-img-top featured-image"
                     alt="Rural Destination"
                   />
                   <div className="card-body">
@@ -67,8 +67,12 @@ function Home() {
             </div>
             <div className="col-md-4">
               <div className="card">
-                <Link to="/accommodation?category=hotels">
-                  <img src={hotelImage} className="card-img-top" alt="Hotels" />
+                <Link to="/accommodation?category=hotels" className="card-link">
+                  <img
+                    src={hotelImage}
+                    className="card-img-top featured-image"
+                    alt="Hotels"
+                  />
                   <div className="card-body">
                     <h5 className="card-title">Hotels</h5>
                   </div>
@@ -77,10 +81,13 @@ function Home() {
             </div>
             <div className="col-md-4">
               <div className="card">
-                <Link to="/accommodation?category=culture">
+                <Link
+                  to="/accommodation?category=culture"
+                  className="card-link"
+                >
                   <img
                     src={cultureImage}
-                    className="card-img-top"
+                    className="card-img-top featured-image"
                     alt="Culture and History Tour"
                   />
                   <div className="card-body">
