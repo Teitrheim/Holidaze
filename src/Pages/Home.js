@@ -104,7 +104,7 @@ function Home() {
         <div className="explore-image-container">
           <img src={hardangerImage} alt="Hardanger" className="img-fluid" />
           <div className="explore-text-overlay">
-            <h2>Still figuring out what to do in Hardanger?</h2>
+            <h2>Still figuring out what to do in Norway?</h2>
             <p>Enjoy the comfort of these places while you decide.</p>
             <Link to="/accommodation">
               <button className="btn btn-success">See all locations</button>

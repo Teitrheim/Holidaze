@@ -1,4 +1,3 @@
-// src/api/apiService.js
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
 const getHeaders = (isProtected = false) => {
@@ -29,4 +28,3 @@ export const apiPost = async (endpoint, data, isProtected = false) => {
   return response;
 };
 
-// Similarly for PUT, DELETE methods
