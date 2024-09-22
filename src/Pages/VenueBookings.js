@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 function VenueBookings() {
   const [venues, setVenues] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchVenues = async () => {
