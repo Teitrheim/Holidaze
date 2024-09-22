@@ -93,7 +93,6 @@ function CreateVenue() {
         return;
       }
 
-      const data = await response.json();
       alert("Venue created successfully!");
       navigate("/dashboard");
     } catch (error) {

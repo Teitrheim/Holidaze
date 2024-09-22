@@ -12,9 +12,9 @@ function Register() {
   const [bannerUrl, setBannerUrl] = useState("");
   const [bannerAlt, setBannerAlt] = useState("");
   const [venueManager, setVenueManager] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // Error state
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate(); // useNavigate hook for redirecting
+  const navigate = useNavigate();
 
   const handleRegistration = async (event) => {
     event.preventDefault();
@@ -138,7 +138,6 @@ function Register() {
         </div>
         <button type="submit">Register</button>
 
-        {/* Error message if any */}
         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </form>
     </div>
