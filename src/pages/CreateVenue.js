@@ -102,107 +102,171 @@ function CreateVenue() {
   };
 
   return (
-    <div className="create-venue-container">
-      <h1>Create a New Venue</h1>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Create a New Venue</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name*:</label>
-          <input
-            type="text"
-            name="name"
-            value={venueData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Description*:</label>
-          <textarea
-            name="description"
-            value={venueData.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Price per Night*:</label>
-          <input
-            type="number"
-            name="price"
-            value={venueData.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Maximum Guests*:</label>
-          <input
-            type="number"
-            name="maxGuests"
-            value={venueData.maxGuests}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Media URL:</label>
-          <input
-            type="text"
-            name="url"
-            value={venueData.media[0].url}
-            onChange={handleMediaChange}
-          />
-        </div>
-        <div>
-          <label>Media Alt Text:</label>
-          <input
-            type="text"
-            name="alt"
-            value={venueData.media[0].alt}
-            onChange={handleMediaChange}
-          />
-        </div>
-        <div>
-          <h3>Amenities:</h3>
-          <label>
-            <input
-              type="checkbox"
-              name="wifi"
-              checked={venueData.meta.wifi}
-              onChange={handleChange}
-            />
-            Wi-Fi
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="parking"
-              checked={venueData.meta.parking}
-              onChange={handleChange}
-            />
-            Parking
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="breakfast"
-              checked={venueData.meta.breakfast}
-              onChange={handleChange}
-            />
-            Breakfast
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="pets"
-              checked={venueData.meta.pets}
-              onChange={handleChange}
-            />
-            Pets Allowed
-          </label>
+        <div className="card mb-4">
+          <div className="card-header">Venue Details</div>
+          <div className="card-body">
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Name<span className="text-danger">*</span>:
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                className="form-control"
+                value={venueData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">
+                Description<span className="text-danger">*</span>:
+              </label>
+              <textarea
+                name="description"
+                id="description"
+                className="form-control"
+                value={venueData.description}
+                onChange={handleChange}
+                rows="4"
+                required
+              />
+            </div>
+
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label htmlFor="price" className="form-label">
+                  Price per Night<span className="text-danger">*</span>:
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  className="form-control"
+                  value={venueData.price}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <label htmlFor="maxGuests" className="form-label">
+                  Maximum Guests<span className="text-danger">*</span>:
+                </label>
+                <input
+                  type="number"
+                  name="maxGuests"
+                  id="maxGuests"
+                  className="form-control"
+                  value={venueData.maxGuests}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="mediaUrl" className="form-label">
+                Media URL:
+              </label>
+              <input
+                type="text"
+                name="url"
+                id="mediaUrl"
+                className="form-control"
+                value={venueData.media[0].url}
+                onChange={handleMediaChange}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="mediaAlt" className="form-label">
+                Media Alt Text:
+              </label>
+              <input
+                type="text"
+                name="alt"
+                id="mediaAlt"
+                className="form-control"
+                value={venueData.media[0].alt}
+                onChange={handleMediaChange}
+              />
+            </div>
+          </div>
         </div>
 
-        <button type="submit">Create Venue</button>
+        {/* Amenities */}
+        <div className="card mb-4">
+          <div className="card-header">Amenities</div>
+          <div className="card-body">
+            <div className="form-check mb-2">
+              <input
+                type="checkbox"
+                name="wifi"
+                id="wifi"
+                className="form-check-input"
+                checked={venueData.meta.wifi}
+                onChange={handleChange}
+              />
+              <label htmlFor="wifi" className="form-check-label">
+                Wi-Fi
+              </label>
+            </div>
+
+            <div className="form-check mb-2">
+              <input
+                type="checkbox"
+                name="parking"
+                id="parking"
+                className="form-check-input"
+                checked={venueData.meta.parking}
+                onChange={handleChange}
+              />
+              <label htmlFor="parking" className="form-check-label">
+                Parking
+              </label>
+            </div>
+
+            <div className="form-check mb-2">
+              <input
+                type="checkbox"
+                name="breakfast"
+                id="breakfast"
+                className="form-check-input"
+                checked={venueData.meta.breakfast}
+                onChange={handleChange}
+              />
+              <label htmlFor="breakfast" className="form-check-label">
+                Breakfast
+              </label>
+            </div>
+
+            <div className="form-check mb-2">
+              <input
+                type="checkbox"
+                name="pets"
+                id="pets"
+                className="form-check-input"
+                checked={venueData.meta.pets}
+                onChange={handleChange}
+              />
+              <label htmlFor="pets" className="form-check-label">
+                Pets Allowed
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <button type="submit" className="btn btn-primary">
+            Create Venue
+          </button>
+        </div>
       </form>
     </div>
   );

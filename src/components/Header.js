@@ -1,17 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import logo from "../images/logo.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./Header.css";
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   // Handle logout
   const handleLogout = () => {
@@ -21,69 +18,96 @@ function Header() {
   };
 
   return (
-    <header className="header">
-      <div className="logo">
-        <Link to="/">
-          <img src={logo} alt="Holidaze Logo" style={{ height: "50px" }} />
+    <nav className="navbar navbar-expand-md custom-header">
+      <div className="container">
+        <Link className="navbar-brand logo" to="/">
+          <img src={logo} alt="Holidaze Logo" />
         </Link>
-      </div>
-      <div className="menu-icon" onClick={toggleMenu}>
-        <div className={`hamburger ${isOpen ? "open" : ""}`}></div>
-      </div>
-      <nav className={`nav ${isOpen ? "open" : ""}`}>
-        <ul>
-          <li>
-            <Link to="/" onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/accommodation" onClick={() => setIsOpen(false)}>
-              Accommodation
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              Contact Us
-            </Link>
-          </li>
-          {user ? (
-            <>
-              <li className="user-info">
-                <Link to="/dashboard" onClick={() => setIsOpen(false)}>
-                  {user.avatar && user.avatar.url ? (
-                    <img
-                      src={user.avatar.url}
-                      alt={user.avatar.alt || "User Avatar"}
-                      className="header-avatar"
-                    />
-                  ) : (
-                    <span>Welcome, {user.name}</span>
-                  )}
-                </Link>
-              </li>
-              <li>
-                <button
-                  className="logout-btn"
-                  onClick={() => {
-                    handleLogout();
-                    setIsOpen(false);
-                  }}
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <li>
-              <Link to="/login" onClick={() => setIsOpen(false)}>
-                Login
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          style={{ borderColor: "rgba(255, 255, 255, 0.5)" }}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse custom-nav" id="navbarNav">
+          <ul className="navbar-nav ms-auto">
+            {/* Navigation Links */}
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Home
               </Link>
             </li>
-          )}
-        </ul>
-      </nav>
-    </header>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/accommodation"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Accommodation
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                to="/contact"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Contact Us
+              </Link>
+            </li>
+            {user ? (
+              <>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    to="/dashboard"
+                    onClick={() => window.scrollTo(0, 0)}
+                  >
+                    {user.avatar && user.avatar.url ? (
+                      <img
+                        src={user.avatar.url}
+                        alt={user.avatar.alt || "User Avatar"}
+                        className="header-avatar"
+                      />
+                    ) : (
+                      `Welcome, ${user.name}`
+                    )}
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <button
+                    className="btn btn-link nav-link logout-btn"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/login"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Login
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 }
 

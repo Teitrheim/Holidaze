@@ -116,9 +116,9 @@ function Home() {
       <section className="join-community my-5">
         <div className="text-center">
           <h2>Join the Holidaze Community</h2>
-          <p>Sign up to receive exclusive offers and travel updates</p>
+          <p>Register now to receive exclusive offers and travel updates</p>
           <Link to="/register">
-            <button className="btn btn-primary">Sign Up Now</button>
+            <button className="btn btn-primary">Register Now</button>
           </Link>
         </div>
       </section>

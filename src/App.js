@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Dashboard from "./components/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 import CreateVenue from "./pages/CreateVenue";
 import ProtectedRoute from "./components/ProtectedRoute";
