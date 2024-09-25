@@ -13,6 +13,7 @@ function Register() {
   const [bannerAlt, setBannerAlt] = useState("");
   const [venueManager, setVenueManager] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -40,15 +41,19 @@ function Register() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setErrorMessage(errorData.errors[0].message); // Display error to the user
+        setErrorMessage(errorData.errors[0].message);
         throw new Error("Failed to register");
       }
 
       const data = await response.json();
       console.log("Registration successful:", data);
 
-      // Redirect to the login page
-      navigate("/login");
+      setSuccessMessage(
+        "Registration successful! Redirecting to login page..."
+      );
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     } catch (error) {
       console.error("Registration error:", error);
     }
@@ -58,6 +63,8 @@ function Register() {
     <div className="register-container">
       <form className="register-form" onSubmit={handleRegistration}>
         <h2>Register</h2>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div>
           <label>Name:</label>
           <input

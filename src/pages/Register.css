@@ -47,3 +47,13 @@
     font-size: 14px;
     display: block;
 }
+
+.success-message {
+    color: green;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}

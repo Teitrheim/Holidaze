@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import "./VenuePage.css";
 import Carousel from "react-bootstrap/Carousel";
 import Calendar from "react-calendar";
@@ -8,6 +9,7 @@ import "react-calendar/dist/Calendar.css";
 function VenuePage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const [venue, setVenue] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,15 +23,6 @@ function VenuePage() {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
   const [availability, setAvailability] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Check if the user is logged in
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
 
   // Fetch the venue details
   useEffect(() => {
@@ -39,7 +32,6 @@ function VenuePage() {
           `https://v2.api.noroff.dev/holidaze/venues/${id}`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
               "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
             },
           }
@@ -70,7 +62,6 @@ function VenuePage() {
           `https://v2.api.noroff.dev/holidaze/venues/${id}?_bookings=true`,
           {
             headers: {
-              Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
               "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
             },
           }
@@ -101,6 +92,12 @@ function VenuePage() {
     setBookingError(null);
     setBookingSuccess(null);
 
+    if (!user) {
+      alert("You must be logged in to make a booking.");
+      navigate("/login");
+      return;
+    }
+
     const bookingData = {
       dateFrom,
       dateTo,
@@ -115,7 +112,7 @@ function VenuePage() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
+            Authorization: `Bearer ${user.accessToken}`,
             "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
           },
           body: JSON.stringify(bookingData),
@@ -123,7 +120,8 @@ function VenuePage() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to create booking");
+        const errorData = await response.json();
+        throw new Error(errorData.errors[0].message);
       }
 
       setBookingSuccess("Booking successful!");
@@ -137,7 +135,7 @@ function VenuePage() {
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isAuthenticated) {
+    if (!user) {
       alert("You must be logged in to submit a review.");
       navigate("/login");
       return;
@@ -212,50 +210,62 @@ function VenuePage() {
         </div>
 
         {/* Booking Form */}
-        <div className="booking-form">
-          <h2>Book This Venue</h2>
-          <form onSubmit={handleBooking}>
-            <div>
-              <label htmlFor="dateFrom">Start Date:</label>
-              <input
-                type="date"
-                id="dateFrom"
-                value={dateFrom}
-                onChange={(e) => setDateFrom(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="dateTo">End Date:</label>
-              <input
-                type="date"
-                id="dateTo"
-                value={dateTo}
-                onChange={(e) => setDateTo(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="guests">Number of Guests:</label>
-              <input
-                type="number"
-                id="guests"
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
-                min="1"
-                max={venue?.maxGuests}
-                required
-              />
-            </div>
-            <button type="submit">Book Now</button>
-          </form>
+        {user ? (
+          <div className="booking-form">
+            <h2>Book This Venue</h2>
+            <form onSubmit={handleBooking}>
+              <div>
+                <label htmlFor="dateFrom">Start Date:</label>
+                <input
+                  type="date"
+                  id="dateFrom"
+                  value={dateFrom}
+                  onChange={(e) => setDateFrom(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="dateTo">End Date:</label>
+                <input
+                  type="date"
+                  id="dateTo"
+                  value={dateTo}
+                  onChange={(e) => setDateTo(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="guests">Number of Guests:</label>
+                <input
+                  type="number"
+                  id="guests"
+                  value={guests}
+                  onChange={(e) => setGuests(e.target.value)}
+                  min="1"
+                  max={venue?.maxGuests}
+                  required
+                />
+              </div>
+              <button type="submit">Book Now</button>
+            </form>
 
-          {/* Success or error messages */}
-          {bookingSuccess && (
-            <p className="success-message">{bookingSuccess}</p>
-          )}
-          {bookingError && <p className="error-message">{bookingError}</p>}
-        </div>
+            {/* Success or error messages */}
+            {bookingSuccess && (
+              <p className="success-message">{bookingSuccess}</p>
+            )}
+            {bookingError && <p className="error-message">{bookingError}</p>}
+          </div>
+        ) : (
+          <div className="booking-prompt">
+            <p>You must be logged in to book this venue.</p>
+            <button
+              onClick={() => navigate("/login")}
+              className="btn btn-primary"
+            >
+              Log In
+            </button>
+          </div>
+        )}
 
         {/* Calendar for selecting availability */}
         <div className="venue-calendar">
@@ -288,7 +298,7 @@ function VenuePage() {
             <p>No reviews yet.</p>
           )}
 
-          {isAuthenticated ? (
+          {user ? (
             <form onSubmit={handleReviewSubmit} className="review-form">
               <h3>Leave a Review</h3>
               <div>
@@ -315,14 +325,15 @@ function VenuePage() {
               <button type="submit">Submit Review</button>
             </form>
           ) : (
-            <p>
+            <div className="review-prompt">
+              <p>You must be logged in to leave a review.</p>
               <button
                 onClick={() => navigate("/login")}
                 className="btn btn-primary"
               >
-                Log in to leave a review
+                Log In
               </button>
-            </p>
+            </div>
           )}
         </div>
       </div>
