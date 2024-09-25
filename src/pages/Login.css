@@ -1,20 +1,24 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 .login-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    padding: 20px;
+    min-height: 80vh;
 }
 
 .login-form {
     width: 100%;
     max-width: 400px;
-    padding: 30px;
+    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .login-form h2 {
@@ -53,6 +57,12 @@
     background-color: #0056b3;
 }
 
+.error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
 .register-link {
     margin-top: 15px;
     text-align: center;
@@ -69,4 +79,10 @@
 
 .register-link a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+    .login-form {
+        padding: 15px;
+    }
 }

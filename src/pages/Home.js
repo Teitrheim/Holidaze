@@ -91,7 +91,7 @@ function Home() {
                     alt="Culture and History Tour"
                   />
                   <div className="card-body">
-                    <h5 className="card-title">Culture and History Tour</h5>
+                    <h5 className="card-title">Culture and History</h5>
                   </div>
                 </Link>
               </div>

@@ -42,14 +42,14 @@ function Dashboard() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response:", errorData); // Log the error response
+        console.error("Error response:", errorData);
         throw new Error(
           `Failed to fetch user venues: ${errorData.errors[0].message}`
         );
       }
 
       const data = await response.json();
-      console.log("Fetched venues:", data); // Debugging
+      console.log("Fetched venues:", data);
       setVenues(data.data);
     } catch (error) {
       console.error("Error fetching user venues:", error);
@@ -93,35 +93,43 @@ function Dashboard() {
       <h1>Welcome to your Dashboard</h1>
       {user ? (
         <div>
-          <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p>
-          {user.avatar && user.avatar.url && (
-            <img
-              src={user.avatar.url}
-              alt={user.avatar.alt || "User Avatar"}
-              style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-            />
-          )}
+          <div className="user-info">
+            {user.avatar && user.avatar.url && (
+              <img
+                src={user.avatar.url}
+                alt={user.avatar.alt || "User Avatar"}
+                className="user-avatar"
+              />
+            )}
+            <p className="user-name">{user.name}</p>
+            <p className="user-email">{user.email}</p>
+          </div>
           {user.venueManager ? (
             <div className="user-venues">
-              <h2>Your Venues</h2>
-              <Link to="/create-venue">
-                <button className="btn btn-primary">Create New Venue</button>
-              </Link>
+              <div className="section-header">
+                <h2>Your Venues</h2>
+                <Link to="/create-venue">
+                  <button className="btn btn-primary">Create New Venue</button>
+                </Link>
+              </div>
               {venues.length > 0 ? (
                 venues.map((venue) => (
                   <div key={venue.id} className="venue-item">
                     <h3>{venue.name}</h3>
                     <p>{venue.description}</p>
-                    <Link to={`/edit-venue/${venue.id}`}>
-                      <button className="btn btn-secondary">Edit Venue</button>
-                    </Link>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeleteVenue(venue.id)}
-                    >
-                      Delete Venue
-                    </button>
+                    <div className="venue-actions">
+                      <Link to={`/edit-venue/${venue.id}`}>
+                        <button className="btn btn-secondary">
+                          Edit Venue
+                        </button>
+                      </Link>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDeleteVenue(venue.id)}
+                      >
+                        Delete Venue
+                      </button>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -130,19 +138,33 @@ function Dashboard() {
             </div>
           ) : (
             <div className="customer-options">
-              <h2>Your Bookings</h2>
-              <Link to="/my-bookings">
-                <button className="btn btn-primary">View My Bookings</button>
-              </Link>
-              <Link to="/accommodation">
-                <button className="btn btn-secondary">Book a Venue</button>
-              </Link>
+              <div className="section-header">
+                <h2>Your Bookings</h2>
+              </div>
+              <div className="booking-actions">
+                <Link to="/my-bookings">
+                  <button className="btn btn-primary">View My Bookings</button>
+                </Link>
+                <Link to="/accommodation">
+                  <button className="btn btn-secondary">Book a Venue</button>
+                </Link>
+              </div>
             </div>
           )}
-          <button onClick={() => navigate("/profile")}>Go to Profile</button>
-          <button onClick={() => navigate("/profile-edit")}>
-            Edit Profile / Update Avatar
-          </button>
+          <div className="action-buttons">
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/profile")}
+            >
+              Go to Profile
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => navigate("/profile-edit")}
+            >
+              Edit Profile / Update Avatar
+            </button>
+          </div>
         </div>
       ) : (
         <p>Loading user info...</p>

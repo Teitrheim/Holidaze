@@ -36,7 +36,6 @@ function Login() {
       const loginResponse = await response.json();
       console.log("Login successful:", loginResponse);
 
-      // Extract accessToken and user name from login response
       const { accessToken, name, email } = loginResponse.data;
 
       // Fetch user profile to get venueManager property
@@ -63,7 +62,7 @@ function Login() {
       const userData = {
         name,
         email,
-        accessToken, 
+        accessToken,
         venueManager: profileData.data.venueManager,
         bio: profileData.data.bio,
         avatar: profileData.data.avatar,
@@ -87,8 +86,9 @@ function Login() {
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div>
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>{" "}
           <input
             type="email"
             value={email}
@@ -97,7 +97,7 @@ function Login() {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label htmlFor="password">Password:</label>{" "}
           <input
             type="password"
             value={password}
@@ -106,7 +106,6 @@ function Login() {
           />
         </div>
         <button type="submit">Login</button>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         <div className="register-link">
           <p>
             Don't have an account? <Link to="/register">Register here</Link>
