@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Accommodation from "./pages/Accommodation";
 import VenuePage from "./pages/VenuePage";
@@ -21,6 +20,8 @@ import VenueBookings from "./pages/VenueBookings";
 import MyBookings from "./pages/MyBookings";
 import EditVenue from "./pages/EditVenue";
 import ProfileEdit from "./pages/ProfileEdit";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 
 function App() {
   return (
@@ -30,20 +31,42 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
             <Route path="/accommodation" element={<Accommodation />} />
             <Route path="/venue/:id" element={<VenuePage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/create-venue" element={<CreateVenue />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsConditions />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/profile-edit"
               element={
                 <ProtectedRoute>
                   <ProfileEdit />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/create-venue"
+              element={
+                <ProtectedRoute isVenueManager={true}>
+                  <CreateVenue />
                 </ProtectedRoute>
               }
             />
@@ -68,14 +91,6 @@ function App() {
               element={
                 <ProtectedRoute isVenueManager={true}>
                   <VenueBookings />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/create-venue"
-              element={
-                <ProtectedRoute isVenueManager={true}>
-                  <CreateVenue />
                 </ProtectedRoute>
               }
             />

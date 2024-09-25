@@ -108,9 +108,18 @@ function Dashboard() {
             <div className="user-venues">
               <div className="section-header">
                 <h2>Your Venues</h2>
-                <Link to="/create-venue">
-                  <button className="btn btn-primary">Create New Venue</button>
-                </Link>
+                <div className="venue-actions">
+                  <Link to="/create-venue">
+                    <button className="btn btn-primary">
+                      Create New Venue
+                    </button>
+                  </Link>
+                  <Link to="/venue-bookings">
+                    <button className="btn btn-secondary">
+                      View Venue Bookings
+                    </button>
+                  </Link>
+                </div>
               </div>
               {venues.length > 0 ? (
                 venues.map((venue) => (

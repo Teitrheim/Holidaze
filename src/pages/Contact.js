@@ -9,6 +9,7 @@ function Contact() {
     city: "",
     postcode: "",
     email: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -35,6 +36,7 @@ function Contact() {
     ) {
       newErrors.email = "Invalid email address";
     }
+    if (!formData.message.trim()) newErrors.message = "Message is required";
     return newErrors;
   };
 
@@ -44,15 +46,14 @@ function Contact() {
 
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      // Form is valid, proceed with submission
       console.log("Form submitted:", formData);
-      // Reset form or navigate to a thank you page
       setFormData({
         name: "",
         address: "",
         city: "",
         postcode: "",
         email: "",
+        message: "",
       });
       alert("Thank you for contacting us!");
       navigate("/");
@@ -62,78 +63,119 @@ function Contact() {
   };
 
   return (
-    <>
-      {/* Contact Form */}
-      <div className="contact-container">
-        <h2>Contact Us</h2>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          {/* Name Field */}
-          <div className="form-group">
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            {errors.name && <p className="error">{errors.name}</p>}
-          </div>
+    <div className="container contact-container">
+      <h2 className="text-center mb-4">Contact Us</h2>
+      <form className="contact-form" onSubmit={handleSubmit}>
+        {/* Name Field */}
+        <div className="mb-3">
+          <label className="form-label">
+            Name<span className="text-danger">*</span>:
+          </label>
+          <input
+            type="text"
+            name="name"
+            className={`form-control ${errors.name && "is-invalid"}`}
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Enter your full name"
+          />
+          {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+        </div>
 
-          {/* Address Field */}
-          <div className="form-group">
-            <label>Address:</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            />
-            {errors.address && <p className="error">{errors.address}</p>}
-          </div>
+        {/* Address Field */}
+        <div className="mb-3">
+          <label className="form-label">
+            Address<span className="text-danger">*</span>:
+          </label>
+          <input
+            type="text"
+            name="address"
+            className={`form-control ${errors.address && "is-invalid"}`}
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Enter your address"
+          />
+          {errors.address && (
+            <div className="invalid-feedback">{errors.address}</div>
+          )}
+        </div>
 
-          {/* City Field */}
-          <div className="form-group">
-            <label>City:</label>
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-            />
-            {errors.city && <p className="error">{errors.city}</p>}
-          </div>
+        {/* City Field */}
+        <div className="mb-3">
+          <label className="form-label">
+            City<span className="text-danger">*</span>:
+          </label>
+          <input
+            type="text"
+            name="city"
+            className={`form-control ${errors.city && "is-invalid"}`}
+            value={formData.city}
+            onChange={handleChange}
+            placeholder="Enter your city"
+          />
+          {errors.city && <div className="invalid-feedback">{errors.city}</div>}
+        </div>
 
-          {/* Postcode Field */}
-          <div className="form-group">
-            <label>Postcode:</label>
-            <input
-              type="text"
-              name="postcode"
-              value={formData.postcode}
-              onChange={handleChange}
-            />
-            {errors.postcode && <p className="error">{errors.postcode}</p>}
-          </div>
+        {/* Postcode Field */}
+        <div className="mb-3">
+          <label className="form-label">
+            Postcode<span className="text-danger">*</span>:
+          </label>
+          <input
+            type="text"
+            name="postcode"
+            className={`form-control ${errors.postcode && "is-invalid"}`}
+            value={formData.postcode}
+            onChange={handleChange}
+            placeholder="Enter your postcode"
+          />
+          {errors.postcode && (
+            <div className="invalid-feedback">{errors.postcode}</div>
+          )}
+        </div>
 
-          {/* Email Field */}
-          <div className="form-group">
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && <p className="error">{errors.email}</p>}
-          </div>
+        {/* Email Field */}
+        <div className="mb-3">
+          <label className="form-label">
+            Email<span className="text-danger">*</span>:
+          </label>
+          <input
+            type="email"
+            name="email"
+            className={`form-control ${errors.email && "is-invalid"}`}
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email address"
+          />
+          {errors.email && (
+            <div className="invalid-feedback">{errors.email}</div>
+          )}
+        </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="btn-submit">
-            Submit
-          </button>
-        </form>
-      </div>
-    </>
+        {/* Message Field */}
+        <div className="mb-3">
+          <label className="form-label">
+            Message<span className="text-danger">*</span>:
+          </label>
+          <textarea
+            name="message"
+            className={`form-control ${errors.message && "is-invalid"}`}
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Enter your message"
+            rows="5"
+          />
+          {errors.message && (
+            <div className="invalid-feedback">{errors.message}</div>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <button type="submit" className="btn btn-primary btn-block w-100">
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

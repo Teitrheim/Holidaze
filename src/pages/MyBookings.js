@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import "./MyBookings.css";
 
 function MyBookings() {
+  const { user } = useContext(UserContext);
   const [bookings, setBookings] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     const fetchBookings = async () => {
       try {
-        const token = user.accessToken;
         const response = await fetch(
           `https://v2.api.noroff.dev/holidaze/profiles/${user.name}/bookings?_venue=true`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${user.accessToken}`,
+              "Content-Type": "application/json",
               "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
             },
           }
@@ -30,7 +39,7 @@ function MyBookings() {
     };
 
     fetchBookings();
-  }, [user.name, user.accessToken]);
+  }, [user, navigate]);
 
   return (
     <div className="my-bookings-container">
