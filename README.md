@@ -1,74 +1,248 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# **Holidaze Accommodation Booking Front End**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the **Holidaze** accommodation booking application! This project is a modern front-end application for a newly launched booking site called Holidaze. It allows users to browse venues, make bookings, and for venue managers to manage their venues and bookings.
+
+## **Table of Contents**
+
+- [**Holidaze Accommodation Booking Front End**](#holidaze-accommodation-booking-front-end)
+  - [**Table of Contents**](#table-of-contents)
+  - [**Features**](#features)
+  - [**Built With**](#built-with)
+  - [**Getting Started**](#getting-started)
+    - [**Prerequisites**](#prerequisites)
+    - [**Installation**](#installation)
+      - [**Usage**](#usage)
+        - [**Building for Production**](#building-for-production)
+          - [**Project Structure**](#project-structure)
+  - [Available Scripts](#available-scripts)
+  - [API Documentation](#api-documentation)
+  - [User Roles](#user-roles)
+    - [Customers](#customers)
+    - [Venue Managers](#venue-managers)
+  - [Functionality](#functionality)
+    - [Customer Features](#customer-features)
+      - [View Venues](#view-venues)
+      - [Venue Details](#venue-details)
+      - [Booking](#booking)
+      - [Venue Manager Profile](#venue-manager-profile)
+    - [Venue Manager Features](#venue-manager-features)
+      - [Venue Management](#venue-management)
+      - [Booking Management](#booking-management)
+      - [Venue Manager User Profile](#venue-manager-user-profile)
+  - [Accessibility](#accessibility)
+    - [Accessibility Features](#accessibility-features)
+  - [Contributing](#contributing)
+  - [Contact](#contact)
+  - [Additional Notes](#additional-notes)
+
+## **Features**
+
+- **Browse Venues:** Users can view a comprehensive list of available venues.
+- **Search and Filter:** Search for venues by name, category, or services.
+- **Venue Details:** View detailed information about each venue, including images, descriptions, amenities, and reviews.
+- **Calendar Availability:** Check availability using an interactive calendar.
+- **User Authentication:** Register and log in as a customer or venue manager.
+- **Booking Management:** Customers can create and view their bookings.
+- **Venue Management:** Venue managers can create, update, and delete venues, as well as view bookings for their venues.
+- **Profile Management:** Users can update their profile information and avatar.
+- **Responsive Design:** Optimized for various devices and screen sizes.
+- **Accessibility:** Application tested and optimized for accessibility compliance.
+
+---
+
+## **Built With**
+
+- **React** - JavaScript library for building user interfaces.
+- **React Router** - Declarative routing for React applications.
+- **Bootstrap** - CSS framework for responsive design.
+- **React Bootstrap** - Bootstrap components built with React.
+- **React Calendar** - Calendar component for React.
+- **Context API** - State management for React applications.
+- **Fetch API** - Making API requests.
+- **CSS Modules** - Modular and reusable CSS.
+
+---
+
+## **Getting Started**
+
+### **Prerequisites**
+
+- **Node.js** (v14 or later)
+- **npm** (v6 or later) or **yarn**
+
+### **Installation**
+
+1. **Clone the repository:**
+   git clone [](https://github.com/Teitrheim/Holidaze.git)
+
+2. **Navigate to the project directory:**
+   cd holidaze
+
+3. **Install dependencies:**
+   npm install
+
+4. **Set up Environment Variables:**
+   Create a .env file in the root directory.
+   Add the following environment variables:
+   REACT_APP_API_KEY=your_api_key_here
+   Replace your_api_key_here with your actual API key from the Holidaze API.
+
+#### **Usage**
+
+    Running the App
+    To start the development server: npm start
+    The app will run on http://localhost:3000.
+
+##### **Building for Production**
+
+    To build the app for production:
+    npm run build
+    The production-ready files will be in the build folder.
+
+###### **Project Structure**
+
+holidaze/
+├── public/
+│ └── index.html
+├── src/
+│ ├── components/
+│ ├── contexts/
+│ ├── pages/
+│ ├── App.js
+│ ├── index.js
+│ └── index.css
+├── .env
+├── package.json
+└── README.md
+
+    components/: Reusable components like headers, footers, forms.
+    contexts/: React Contexts for state management.
+    pages/: Page components for different routes.
+    App.js: Main application component.
+    index.js: Entry point of the application.
+    index.css: Global CSS styles.
 
 ## Available Scripts
 
-In the project directory, you can run:
+- **npm start**: Runs the app in development mode.
+- **npm run build**: Builds the app for production.
+- **npm test**: Launches the test runner.
+- **npm run eject**: Ejects the app from Create React App (not recommended).
 
-### `npm start`
+## API Documentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application interacts with the Holidaze API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+API documentation can be found at [Holidaze API Documentation](https://docs.noroff.dev/holidaze).
 
-### `npm test`
+## User Roles
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Customers
 
-### `npm run build`
+- Users with a `stud.noroff.no` email can register as customers.
+- Can browse venues, make bookings, and view their bookings.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Venue Managers
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Users with a `stud.noroff.no` email can register as venue managers.
+- Can create, update, and delete venues.
+- Can view bookings for their venues.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Functionality
 
-### `npm run eject`
+### Customer Features
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### View Venues
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Browse a list of all available venues.
+- Search and filter venues based on categories and services.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Venue Details
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- View detailed information about a venue.
+- Check availability using a calendar.
+- Read reviews from other users.
 
-## Learn More
+#### Booking
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Select dates and number of guests.
+- Create a booking for a venue.
+- View and manage upcoming bookings.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Venue Manager Profile
 
-### Code Splitting
+- Update profile information and avatar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Venue Manager Features
 
-### Analyzing the Bundle Size
+#### Venue Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Create new venues by providing necessary details.
+- Edit existing venues they manage.
+- Delete venues they manage.
 
-### Making a Progressive Web App
+#### Booking Management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- View all bookings for their venues.
+- Manage bookings and availability.
 
-### Advanced Configuration
+#### Venue Manager User Profile
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Update profile information and avatar.
 
-### Deployment
+## Accessibility
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The application has been tested using:
 
-### `npm run build` fails to minify
+- **WAVE Web Accessibility Evaluation Tool**
+- **W3C Markup Validation Service**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# Holidaze
->>>>>>> origin/main
+### Accessibility Features
+
+- Semantic HTML elements.
+- Proper use of ARIA attributes.
+- Alt attributes for images.
+- Keyboard navigability.
+- Sufficient color contrast.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. **Fork the repository.**
+
+2. **Create a new branch:**
+   git checkout -b feature/your-feature-name
+
+3. **Make your changes and commit them:**
+   git commit -m 'Add some feature'
+
+4. **Push to the branch:**
+   git push origin feature/your-feature-name
+
+5. **Open a pull request.**
+
+License
+This project is licensed under the MIT License.
+
+## Contact
+
+Thomas Eitrheim
+Email: [teitrheim@gmail.com](mailto:teitrheim@gmail.com)
+GitHub: [Teitrheim](https://github.com/Teitrheim)
+Project Link: [Holidaze](https://github.com/Teitrheim/Holidaze.git)
+
+Thank you for visiting Holidaze! We hope you enjoy using our application.
+
+## Additional Notes
+
+Design Prototype: [Figma Design Prototype](https://www.figma.com/design/C1pnWnXICGIgnv90TNInC1/Holidaze?node-id=0-1&node-type=canvas&t=eo22w2o5fClYUMLe-0)
+
+Style Guide: [Figma Style Guide](https://www.figma.com/design/C1pnWnXICGIgnv90TNInC1/Holidaze?node-id=0-1&node-type=canvas&t=eo22w2o5fClYUMLe-0)
+
+Project Board: [Trello Project Board](https://trello.com/b/n9gB8YDx/project-exam-kanban-template)
+
+Hosted Application Demo: [Netlify Hosted Application Demo](https://shiny-wisp-e94719.netlify.app/)
+
+Gantt Chart: [Trello Gantt Chart](https://trello.com/b/n9gB8YDx/project-exam-kanban-template)
+The Gantt Chart is inside the Trello board. You have to activate it.
