@@ -98,7 +98,6 @@ function CreateVenue() {
       alert("Venue created successfully!");
       navigate("/dashboard");
     } catch (error) {
-      console.error("Error creating venue:", error);
       alert("An error occurred while creating the venue.");
     }
   };

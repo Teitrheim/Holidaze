@@ -33,9 +33,7 @@ function MyBookings() {
 
         const data = await response.json();
         setBookings(data.data);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      }
+      } catch (error) {}
     };
 
     fetchBookings();

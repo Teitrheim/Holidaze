@@ -33,9 +33,7 @@ function VenueBookings() {
 
         const data = await response.json();
         setVenues(data.data);
-      } catch (error) {
-        console.error("Error fetching venues:", error);
-      }
+      } catch (error) {}
     };
 
     fetchVenues();
@@ -54,7 +52,9 @@ function VenueBookings() {
                   <p>
                     Booking ID: {booking.id}
                     <br />
-                    From: {new Date(booking.dateFrom).toLocaleDateString()} To:{" "}
+                    From: {new Date(
+                      booking.dateFrom
+                    ).toLocaleDateString()} To:{" "}
                     {new Date(booking.dateTo).toLocaleDateString()}
                     <br />
                     Guests: {booking.guests}

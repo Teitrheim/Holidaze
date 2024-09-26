@@ -40,7 +40,6 @@ function Accommodation() {
         setVenues(data.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching venues:", error);
         setError("Failed to load venues.");
         setLoading(false);
       }
@@ -85,7 +84,7 @@ function Accommodation() {
           ? venue.description.toLowerCase().includes("mountain")
           : false;
       } else {
-        matchesCategory = true; 
+        matchesCategory = true;
       }
     }
 

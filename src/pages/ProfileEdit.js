@@ -57,7 +57,6 @@ function ProfileEdit() {
       alert("Profile updated successfully!");
       navigate("/dashboard");
     } catch (error) {
-      console.error("Error updating profile:", error);
       alert("An error occurred while updating the profile.");
     }
   };

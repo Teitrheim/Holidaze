@@ -46,7 +46,6 @@ function Contact() {
 
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log("Form submitted:", formData);
       setFormData({
         name: "",
         address: "",

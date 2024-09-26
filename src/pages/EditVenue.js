@@ -36,7 +36,6 @@ function EditVenue() {
           navigate("/dashboard");
         }
       } catch (error) {
-        console.error("Error fetching venue:", error);
         setLoading(false);
       }
     };
@@ -109,7 +108,6 @@ function EditVenue() {
       alert("Venue updated successfully!");
       navigate("/dashboard");
     } catch (error) {
-      console.error("Error updating venue:", error);
       alert("An error occurred while updating the venue.");
     }
   };
@@ -142,7 +140,6 @@ function EditVenue() {
         alert("Venue deleted successfully!");
         navigate("/dashboard");
       } catch (error) {
-        console.error("Error deleting venue:", error);
         alert("An error occurred while deleting the venue.");
       }
     }

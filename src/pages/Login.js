@@ -34,7 +34,6 @@ function Login() {
       }
 
       const loginResponse = await response.json();
-      console.log("Login successful:", loginResponse);
 
       const { accessToken, name, email } = loginResponse.data;
 
@@ -69,15 +68,12 @@ function Login() {
         banner: profileData.data.banner,
       };
 
-      console.log("User data to be stored:", userData);
-
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
 
       // Redirect to dashboard
       navigate("/dashboard");
     } catch (error) {
-      console.error("Login error:", error);
       setErrorMessage("An error occurred during login. Please try again.");
     }
   };

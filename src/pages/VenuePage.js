@@ -46,7 +46,6 @@ function VenuePage() {
         setVenue(data.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching venue:", error);
         setError("Failed to load venue details.");
         setLoading(false);
       }
@@ -79,9 +78,7 @@ function VenuePage() {
             to: new Date(booking.dateTo),
           }))
         );
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      }
+      } catch (error) {}
     };
 
     fetchBookings();
@@ -89,7 +86,8 @@ function VenuePage() {
 
   // Load reviews from localStorage on component mount
   useEffect(() => {
-    const storedReviews = JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
+    const storedReviews =
+      JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
     setReviews(storedReviews);
   }, [id]);
 
@@ -133,7 +131,6 @@ function VenuePage() {
 
       setBookingSuccess("Booking successful!");
     } catch (error) {
-      console.error("Error creating booking:", error);
       setBookingError("Failed to create booking. Please try again.");
     }
   };
@@ -159,7 +156,8 @@ function VenuePage() {
 
     try {
       // Storing reviews in localStorage for now
-      const storedReviews = JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
+      const storedReviews =
+        JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
       const updatedReviews = [...storedReviews, reviewData];
       localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
       setReviews(updatedReviews);
@@ -167,9 +165,7 @@ function VenuePage() {
       // Reset the form after submission
       setReviewText("");
       setRating(0);
-    } catch (error) {
-      console.error("Error submitting review:", error);
-    }
+    } catch (error) {}
   };
 
   // Render the image carousel

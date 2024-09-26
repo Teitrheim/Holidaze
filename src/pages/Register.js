@@ -54,9 +54,7 @@ function Register() {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (error) {
-      console.error("Registration error:", error);
-    }
+    } catch (error) {}
   };
 
   return (

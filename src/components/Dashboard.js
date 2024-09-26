@@ -11,7 +11,6 @@ function Dashboard() {
   useEffect(() => {
     if (user) {
       if (!user.accessToken) {
-        console.error("Access token is missing");
         navigate("/login");
         return;
       }
@@ -40,7 +39,6 @@ function Dashboard() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Error response:", errorData);
         throw new Error(
           `Failed to fetch user venues: ${errorData.errors[0].message}`
         );
@@ -48,9 +46,7 @@ function Dashboard() {
 
       const data = await response.json();
       setVenues(data.data);
-    } catch (error) {
-      console.error("Error fetching user venues:", error);
-    }
+    } catch (error) {}
   };
 
   const handleDeleteVenue = async (venueId) => {
@@ -80,7 +76,6 @@ function Dashboard() {
       setVenues(venues.filter((venue) => venue.id !== venueId));
       alert("Venue deleted successfully.");
     } catch (error) {
-      console.error("Error deleting venue:", error);
       alert("An error occurred while deleting the venue.");
     }
   };
