@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
-import "./VenuePage.css";
 import Carousel from "react-bootstrap/Carousel";
 import Calendar from "react-calendar";
+import { Card, Button, Form } from "react-bootstrap";
 import "react-calendar/dist/Calendar.css";
+import "./VenuePage.css";
 
 function VenuePage() {
   const { id } = useParams();
@@ -86,6 +87,12 @@ function VenuePage() {
     fetchBookings();
   }, [id]);
 
+  // Load reviews from localStorage on component mount
+  useEffect(() => {
+    const storedReviews = JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
+    setReviews(storedReviews);
+  }, [id]);
+
   // Handle booking submission
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -144,13 +151,15 @@ function VenuePage() {
     const reviewData = {
       rating,
       comment: reviewText,
+      date: new Date(),
       venueId: id,
+      userName: user.name,
+      userAvatar: user.avatar?.url || "",
     };
 
     try {
       // Storing reviews in localStorage for now
-      const storedReviews =
-        JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
+      const storedReviews = JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
       const updatedReviews = [...storedReviews, reviewData];
       localStorage.setItem(`reviews_${id}`, JSON.stringify(updatedReviews));
       setReviews(updatedReviews);
@@ -273,66 +282,94 @@ function VenuePage() {
           <Calendar
             selectRange={true}
             tileDisabled={({ date }) => !isDateAvailable(date)}
-            onChange={setSelectedDates}
+            onChange={(dates) => {
+              setSelectedDates(dates);
+              if (dates.length === 2) {
+                setDateFrom(dates[0].toISOString().split("T")[0]);
+                setDateTo(dates[1].toISOString().split("T")[0]);
+              }
+            }}
             value={selectedDates}
           />
-          <p>
-            Selected Dates: {selectedDates[0].toLocaleDateString()} to{" "}
-            {selectedDates[1].toLocaleDateString()}
-          </p>
+          {selectedDates.length === 2 && (
+            <p>
+              Selected Dates: {selectedDates[0].toLocaleDateString()} to{" "}
+              {selectedDates[1].toLocaleDateString()}
+            </p>
+          )}
         </div>
 
         {/* Reviews Section */}
-        <div className="venue-reviews">
-          <h2>Reviews</h2>
+        <div className="venue-reviews mt-5">
+          <h2 className="mb-4">Reviews</h2>
           {reviews.length > 0 ? (
             reviews.map((review, index) => (
-              <div key={index} className="review">
-                <p>
-                  <strong>Rating:</strong> {review.rating} / 5
-                </p>
-                <p>{review.comment}</p>
-              </div>
+              <Card key={index} className="mb-3">
+                <Card.Body>
+                  <div className="d-flex align-items-center mb-2">
+                    {review.userAvatar && (
+                      <img
+                        src={review.userAvatar}
+                        alt="Avatar"
+                        className="review-avatar me-2"
+                      />
+                    )}
+                    <div>
+                      <strong>{review.userName}</strong>
+                      <div className="rating-stars">
+                        <span>{"⭐".repeat(review.rating)}</span>
+                      </div>
+                      <small className="text-muted">
+                        {new Date(review.date).toLocaleString()}
+                      </small>
+                    </div>
+                  </div>
+                  <Card.Text>{review.comment}</Card.Text>
+                </Card.Body>
+              </Card>
             ))
           ) : (
             <p>No reviews yet.</p>
           )}
 
           {user ? (
-            <form onSubmit={handleReviewSubmit} className="review-form">
-              <h3>Leave a Review</h3>
-              <div>
-                <label htmlFor="rating">Rating:</label>
-                <input
-                  type="number"
-                  id="rating"
-                  value={rating}
-                  onChange={(e) => setRating(e.target.value)}
-                  min="1"
-                  max="5"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="reviewText">Your Review:</label>
-                <textarea
-                  id="reviewText"
-                  value={reviewText}
-                  onChange={(e) => setReviewText(e.target.value)}
-                  required
-                />
-              </div>
-              <button type="submit">Submit Review</button>
-            </form>
+            <Card className="review-form-card mt-4">
+              <Card.Body>
+                <h3 className="mb-4">Leave a Review</h3>
+                <Form onSubmit={handleReviewSubmit}>
+                  <Form.Group controlId="rating" className="mb-3">
+                    <Form.Label>Rating</Form.Label>
+                    <Form.Control
+                      type="number"
+                      value={rating}
+                      onChange={(e) => setRating(e.target.value)}
+                      min="1"
+                      max="5"
+                      required
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="reviewText" className="mb-3">
+                    <Form.Label>Your Review</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={reviewText}
+                      onChange={(e) => setReviewText(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                  <Button variant="primary" type="submit">
+                    Submit Review
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
           ) : (
             <div className="review-prompt">
               <p>You must be logged in to leave a review.</p>
-              <button
-                onClick={() => navigate("/login")}
-                className="btn btn-primary"
-              >
+              <Button onClick={() => navigate("/login")} variant="primary">
                 Log In
-              </button>
+              </Button>
             </div>
           )}
         </div>
