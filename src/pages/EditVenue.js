@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "./EditVenue.css";
 
 function EditVenue() {
   const { id } = useParams();
@@ -8,7 +9,6 @@ function EditVenue() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the venue data to pre-fill the form
     const fetchVenue = async () => {
       try {
         const response = await fetch(
@@ -152,112 +152,200 @@ function EditVenue() {
   if (!venueData) return <p>Venue not found.</p>;
 
   return (
-    <div className="edit-venue-container">
-      <h1>Edit Venue</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name*:</label>
-          <input
-            type="text"
-            name="name"
-            value={venueData.name}
-            onChange={handleChange}
-            required
-          />
+    <div className="container mt-5 edit-venue-container">
+      <h1 className="text-center mb-4">Edit Venue</h1>
+      <form onSubmit={handleSubmit} noValidate>
+        {/* Venue Details */}
+        <div className="card mb-4">
+          <div className="card-header">Venue Details</div>
+          <div className="card-body">
+            {/* Name */}
+            <div className="mb-3">
+              <label className="form-label">
+                Name<span className="text-danger">*</span>:
+              </label>
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                value={venueData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            {/* Description */}
+            <div className="mb-3">
+              <label className="form-label">
+                Description<span className="text-danger">*</span>:
+              </label>
+              <textarea
+                name="description"
+                className="form-control"
+                value={venueData.description}
+                onChange={handleChange}
+                required
+                rows="4"
+              />
+            </div>
+            {/* Price and Max Guests */}
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label className="form-label">
+                  Price per Night<span className="text-danger">*</span>:
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  className="form-control"
+                  value={venueData.price}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="col-md-6 mb-3">
+                <label className="form-label">
+                  Maximum Guests<span className="text-danger">*</span>:
+                </label>
+                <input
+                  type="number"
+                  name="maxGuests"
+                  className="form-control"
+                  value={venueData.maxGuests}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <label>Description*:</label>
-          <textarea
-            name="description"
-            value={venueData.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Price per Night*:</label>
-          <input
-            type="number"
-            name="price"
-            value={venueData.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Maximum Guests*:</label>
-          <input
-            type="number"
-            name="maxGuests"
-            value={venueData.maxGuests}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Media URL:</label>
-          <input
-            type="text"
-            name="url"
-            value={venueData.media[0]?.url || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Media Alt Text:</label>
-          <input
-            type="text"
-            name="alt"
-            value={venueData.media[0]?.alt || ""}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <h3>Amenities:</h3>
-          <label>
-            <input
-              type="checkbox"
-              name="wifi"
-              checked={venueData.meta.wifi}
-              onChange={handleChange}
-            />
-            Wi-Fi
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="parking"
-              checked={venueData.meta.parking}
-              onChange={handleChange}
-            />
-            Parking
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="breakfast"
-              checked={venueData.meta.breakfast}
-              onChange={handleChange}
-            />
-            Breakfast
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="pets"
-              checked={venueData.meta.pets}
-              onChange={handleChange}
-            />
-            Pets Allowed
-          </label>
-        </div>
-        <button type="submit">Update Venue</button>
-      </form>
 
-      {/* Delete Button */}
-      <button onClick={handleDelete} className="delete-button">
-        Delete Venue
-      </button>
+        {/* Media */}
+        <div className="card mb-4">
+          <div className="card-header">Media</div>
+          <div className="card-body">
+            {/* Image URL */}
+            <div className="mb-3">
+              <label className="form-label">Image URL:</label>
+              <input
+                type="text"
+                name="url"
+                className="form-control"
+                value={venueData.media[0]?.url || ""}
+                onChange={handleChange}
+              />
+            </div>
+            {/* Image Preview */}
+            {venueData.media[0]?.url && (
+              <div className="text-center mb-3">
+                <img
+                  src={venueData.media[0].url}
+                  alt={venueData.media[0].alt || "Venue Image"}
+                  className="img-fluid rounded"
+                  style={{ maxHeight: "200px" }}
+                />
+              </div>
+            )}
+            {/* Alt Text */}
+            <div className="mb-3">
+              <label className="form-label">Image Alt Text:</label>
+              <input
+                type="text"
+                name="alt"
+                className="form-control"
+                value={venueData.media[0]?.alt || ""}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Amenities */}
+        <div className="card mb-4">
+          <div className="card-header">Amenities</div>
+          <div className="card-body">
+            <div className="row">
+              {/* Wi-Fi */}
+              <div className="col-md-3 mb-3">
+                <div className="form-check form-switch">
+                  <input
+                    type="checkbox"
+                    name="wifi"
+                    id="wifi"
+                    className="form-check-input"
+                    checked={venueData.meta.wifi}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="wifi" className="form-check-label">
+                    Wi-Fi
+                  </label>
+                </div>
+              </div>
+              {/* Parking */}
+              <div className="col-md-3 mb-3">
+                <div className="form-check form-switch">
+                  <input
+                    type="checkbox"
+                    name="parking"
+                    id="parking"
+                    className="form-check-input"
+                    checked={venueData.meta.parking}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="parking" className="form-check-label">
+                    Parking
+                  </label>
+                </div>
+              </div>
+              {/* Breakfast */}
+              <div className="col-md-3 mb-3">
+                <div className="form-check form-switch">
+                  <input
+                    type="checkbox"
+                    name="breakfast"
+                    id="breakfast"
+                    className="form-check-input"
+                    checked={venueData.meta.breakfast}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="breakfast" className="form-check-label">
+                    Breakfast
+                  </label>
+                </div>
+              </div>
+              {/* Pets */}
+              <div className="col-md-3 mb-3">
+                <div className="form-check form-switch">
+                  <input
+                    type="checkbox"
+                    name="pets"
+                    id="pets"
+                    className="form-check-input"
+                    checked={venueData.meta.pets}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="pets" className="form-check-label">
+                    Pets Allowed
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Submit and Delete Buttons */}
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-primary">
+            Update Venue
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleDelete}
+          >
+            Delete Venue
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

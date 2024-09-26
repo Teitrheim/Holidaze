@@ -17,17 +17,17 @@ function Accommodation() {
   useEffect(() => {
     const fetchVenues = async () => {
       try {
-        let url = "https://v2.api.noroff.dev/holidaze/venues";
+        let url = "https://v2.api.noroff.dev/holidaze/venues?_meta=true";
 
         if (searchTerm) {
           url = `https://v2.api.noroff.dev/holidaze/venues/search?q=${encodeURIComponent(
             searchTerm
-          )}`;
+          )}&_meta=true`;
         }
 
         const response = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_ACCESS_TOKEN}`,
+            "Content-Type": "application/json",
             "X-Noroff-API-Key": process.env.REACT_APP_API_KEY,
           },
         });
@@ -55,22 +55,44 @@ function Accommodation() {
     const matchesSearchTerm =
       searchTerm === "" || venueName.includes(searchTerm.toLowerCase());
 
-    // Manually categorize venues
+    // Categorize venues
     let matchesCategory = true;
-    if (category === "rural") {
-      matchesCategory = venue.description.toLowerCase().includes("rural");
-    } else if (category === "hotels") {
-      matchesCategory = venue.description.toLowerCase().includes("hotel");
+    if (category) {
+      if (category === "rural") {
+        matchesCategory = venue.description
+          ? venue.description.toLowerCase().includes("rural")
+          : false;
+      } else if (category === "hotel") {
+        matchesCategory = venue.description
+          ? venue.description.toLowerCase().includes("hotel")
+          : false;
+      } else if (category === "luxury") {
+        matchesCategory = venue.price >= 200;
+      } else if (category === "budget") {
+        matchesCategory = venue.price <= 100;
+      } else if (category === "family") {
+        matchesCategory = venue.maxGuests >= 4;
+      } else if (category === "romantic") {
+        matchesCategory = venue.description
+          ? venue.description.toLowerCase().includes("romantic")
+          : false;
+      } else if (category === "beach") {
+        matchesCategory = venue.description
+          ? venue.description.toLowerCase().includes("beach")
+          : false;
+      } else if (category === "mountain") {
+        matchesCategory = venue.description
+          ? venue.description.toLowerCase().includes("mountain")
+          : false;
+      } else {
+        matchesCategory = true; 
+      }
     }
 
     // Filter by services
     let matchesServices = true;
     if (services) {
-      if (services === "wifi") {
-        matchesServices = venue.meta?.wifi === true;
-      } else if (services === "parking") {
-        matchesServices = venue.meta?.parking === true;
-      }
+      matchesServices = venue.meta && venue.meta[services] === true;
     }
 
     return matchesCategory && matchesSearchTerm && matchesServices;
@@ -92,8 +114,13 @@ function Accommodation() {
           >
             <option value="">Categories</option>
             <option value="rural">Rural</option>
-            <option value="hotels">Hotels</option>
-            {/* More options here */}
+            <option value="hotel">Hotels</option>
+            <option value="luxury">Luxury</option>
+            <option value="budget">Budget</option>
+            <option value="family">Family</option>
+            <option value="romantic">Romantic</option>
+            <option value="beach">Beach</option>
+            <option value="mountain">Mountain</option>
           </Form.Select>
         </Col>
         <Col xs={12} md={3} className="mb-2">
@@ -112,7 +139,8 @@ function Accommodation() {
             <option value="">Services</option>
             <option value="wifi">Wi-Fi</option>
             <option value="parking">Parking</option>
-            {/* More service options here */}
+            <option value="breakfast">Breakfast</option>
+            <option value="pets">Pets Allowed</option>
           </Form.Select>
         </Col>
       </Row>
