@@ -10,8 +10,6 @@ function Dashboard() {
 
   useEffect(() => {
     if (user) {
-      console.log("User in Dashboard:", user);
-
       if (!user.accessToken) {
         console.error("Access token is missing");
         navigate("/login");
@@ -49,7 +47,6 @@ function Dashboard() {
       }
 
       const data = await response.json();
-      console.log("Fetched venues:", data);
       setVenues(data.data);
     } catch (error) {
       console.error("Error fetching user venues:", error);
@@ -93,87 +90,94 @@ function Dashboard() {
       <h1>Welcome to your Dashboard</h1>
       {user ? (
         <div>
-          <div className="user-info">
-            {user.avatar && user.avatar.url && (
-              <img
-                src={user.avatar.url}
-                alt={user.avatar.alt || "User Avatar"}
-                className="user-avatar"
-              />
-            )}
-            <p className="user-name">{user.name}</p>
-            <p className="user-email">{user.email}</p>
+          <div className="user-info card">
+            <div className="card-body text-center">
+              {user.avatar && user.avatar.url && (
+                <img
+                  src={user.avatar.url}
+                  alt={user.avatar.alt || "User Avatar"}
+                  className="user-avatar"
+                />
+              )}
+              <h2 className="user-name">{user.name}</h2>
+              <p className="user-email">{user.email}</p>
+              <div className="action-buttons mt-3">
+                <button
+                  className="btn btn-primary me-2"
+                  onClick={() => navigate("/profile")}
+                >
+                  View Profile
+                </button>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => navigate("/profile-edit")}
+                >
+                  Edit Profile
+                </button>
+              </div>
+            </div>
           </div>
+
           {user.venueManager ? (
-            <div className="user-venues">
-              <div className="section-header">
+            <div className="user-venues mt-5">
+              <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Your Venues</h2>
-                <div className="venue-actions">
-                  <Link to="/create-venue">
-                    <button className="btn btn-primary">
-                      Create New Venue
-                    </button>
+                <div>
+                  <Link to="/create-venue" className="btn btn-success me-2">
+                    Create New Venue
                   </Link>
-                  <Link to="/venue-bookings">
-                    <button className="btn btn-secondary">
-                      View Venue Bookings
-                    </button>
+                  <Link to="/venue-bookings" className="btn btn-info">
+                    View Venue Bookings
                   </Link>
                 </div>
               </div>
               {venues.length > 0 ? (
-                venues.map((venue) => (
-                  <div key={venue.id} className="venue-item">
-                    <h3>{venue.name}</h3>
-                    <p>{venue.description}</p>
-                    <div className="venue-actions">
-                      <Link to={`/edit-venue/${venue.id}`}>
-                        <button className="btn btn-secondary">
-                          Edit Venue
-                        </button>
-                      </Link>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDeleteVenue(venue.id)}
-                      >
-                        Delete Venue
-                      </button>
+                <div className="venue-list">
+                  {venues.map((venue) => (
+                    <div key={venue.id} className="venue-item card mb-3">
+                      <div className="card-body">
+                        <h3 className="card-title">{venue.name}</h3>
+                        <p className="card-text">{venue.description}</p>
+                        <div className="venue-actions mt-3">
+                          <Link
+                            to={`/edit-venue/${venue.id}`}
+                            className="btn btn-primary me-2"
+                          >
+                            Edit Venue
+                          </Link>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDeleteVenue(venue.id)}
+                          >
+                            Delete Venue
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <p>You have not created any venues yet.</p>
+                <div className="text-center">
+                  <p>You have not created any venues yet.</p>
+                  <Link to="/create-venue" className="btn btn-success">
+                    Create Your First Venue
+                  </Link>
+                </div>
               )}
             </div>
           ) : (
-            <div className="customer-options">
-              <div className="section-header">
-                <h2>Your Bookings</h2>
-              </div>
-              <div className="booking-actions">
-                <Link to="/my-bookings">
-                  <button className="btn btn-primary">View My Bookings</button>
+            <div className="customer-options mt-5">
+              <h2>Your Bookings</h2>
+              <div className="booking-actions mt-3">
+                <Link to="/my-bookings" className="btn btn-primary me-2">
+                  View My Bookings
                 </Link>
-                <Link to="/accommodation">
-                  <button className="btn btn-secondary">Book a Venue</button>
+                <Link to="/accommodation" className="btn btn-secondary">
+                  Book a Venue
                 </Link>
               </div>
             </div>
           )}
-          <div className="action-buttons">
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/profile")}
-            >
-              Go to Profile
-            </button>
-            <button
-              className="btn btn-secondary"
-              onClick={() => navigate("/profile-edit")}
-            >
-              Edit Profile / Update Avatar
-            </button>
-          </div>
         </div>
       ) : (
         <p>Loading user info...</p>
