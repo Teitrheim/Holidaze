@@ -1,3 +1,5 @@
+// Accommodation.js
+
 import React, { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Form, Container, Row, Col } from "react-bootstrap";
@@ -108,6 +110,7 @@ function Accommodation() {
       <Row className="justify-content-center mb-4">
         <Col xs={12} md={4} className="mb-2">
           <Form.Select
+            aria-label="Categories"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -123,8 +126,12 @@ function Accommodation() {
           </Form.Select>
         </Col>
         <Col xs={12} md={3} className="mb-2">
+          <label htmlFor="venueSearch" className="visually-hidden">
+            Search Venues:
+          </label>
           <Form.Control
             type="text"
+            id="venueSearch"
             placeholder="Find by name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -132,6 +139,7 @@ function Accommodation() {
         </Col>
         <Col xs={12} md={4} className="mb-2">
           <Form.Select
+            aria-label="Services"
             value={services}
             onChange={(e) => setServices(e.target.value)}
           >

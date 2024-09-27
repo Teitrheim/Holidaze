@@ -67,13 +67,14 @@ function Contact() {
       <form className="contact-form" onSubmit={handleSubmit}>
         {/* Name Field */}
         <div className="mb-3">
-          <label className="form-label">
-            Name<span className="text-danger">*</span>:
+          <label htmlFor="name" className="visually-hidden">
+            Name:
           </label>
           <input
             type="text"
+            id="name"
             name="name"
-            className={`form-control ${errors.name && "is-invalid"}`}
+            className={`form-control ${errors.name ? "is-invalid" : ""}`}
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your full name"
@@ -83,13 +84,14 @@ function Contact() {
 
         {/* Address Field */}
         <div className="mb-3">
-          <label className="form-label">
-            Address<span className="text-danger">*</span>:
+          <label htmlFor="address" className="visually-hidden">
+            Address:
           </label>
           <input
             type="text"
+            id="address"
             name="address"
-            className={`form-control ${errors.address && "is-invalid"}`}
+            className={`form-control ${errors.address ? "is-invalid" : ""}`}
             value={formData.address}
             onChange={handleChange}
             placeholder="Enter your address"
@@ -101,13 +103,14 @@ function Contact() {
 
         {/* City Field */}
         <div className="mb-3">
-          <label className="form-label">
-            City<span className="text-danger">*</span>:
+          <label htmlFor="city" className="visually-hidden">
+            City:
           </label>
           <input
             type="text"
+            id="city"
             name="city"
-            className={`form-control ${errors.city && "is-invalid"}`}
+            className={`form-control ${errors.city ? "is-invalid" : ""}`}
             value={formData.city}
             onChange={handleChange}
             placeholder="Enter your city"
@@ -117,13 +120,14 @@ function Contact() {
 
         {/* Postcode Field */}
         <div className="mb-3">
-          <label className="form-label">
-            Postcode<span className="text-danger">*</span>:
+          <label htmlFor="postcode" className="visually-hidden">
+            Postcode:
           </label>
           <input
             type="text"
+            id="postcode"
             name="postcode"
-            className={`form-control ${errors.postcode && "is-invalid"}`}
+            className={`form-control ${errors.postcode ? "is-invalid" : ""}`}
             value={formData.postcode}
             onChange={handleChange}
             placeholder="Enter your postcode"
@@ -135,13 +139,14 @@ function Contact() {
 
         {/* Email Field */}
         <div className="mb-3">
-          <label className="form-label">
-            Email<span className="text-danger">*</span>:
+          <label htmlFor="email" className="visually-hidden">
+            Email:
           </label>
           <input
             type="email"
+            id="email"
             name="email"
-            className={`form-control ${errors.email && "is-invalid"}`}
+            className={`form-control ${errors.email ? "is-invalid" : ""}`}
             value={formData.email}
             onChange={handleChange}
             placeholder="Enter your email address"
@@ -153,12 +158,13 @@ function Contact() {
 
         {/* Message Field */}
         <div className="mb-3">
-          <label className="form-label">
-            Message<span className="text-danger">*</span>:
+          <label htmlFor="message" className="visually-hidden">
+            Message:
           </label>
           <textarea
+            id="message"
             name="message"
-            className={`form-control ${errors.message && "is-invalid"}`}
+            className={`form-control ${errors.message ? "is-invalid" : ""}`}
             value={formData.message}
             onChange={handleChange}
             placeholder="Enter your message"
