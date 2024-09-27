@@ -54,96 +54,167 @@ function Register() {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (error) {}
+    } catch (error) {
+    }
   };
 
   return (
     <div className="register-container">
-      <form className="register-form" onSubmit={handleRegistration}>
+      <form className="register-form" onSubmit={handleRegistration} noValidate>
         <h2>Register</h2>
         {successMessage && <p className="success-message">{successMessage}</p>}
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <div>
-          <label>Name:</label>
+
+        {/* Name */}
+        <div className="form-group">
+          <label htmlFor="name">
+            Name<span className="text-danger">*</span>:
+          </label>
           <input
             type="text"
+            id="name"
+            name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            aria-required="true"
           />
         </div>
-        <div>
-          <label>Email:</label>
+
+        {/* Email */}
+        <div className="form-group">
+          <label htmlFor="email">
+            Email<span className="text-danger">*</span>:
+          </label>
           <input
             type="email"
+            id="email"
+            name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            aria-required="true"
           />
         </div>
-        <div>
-          <label>Password:</label>
+
+        {/* Password */}
+        <div className="form-group">
+          <label htmlFor="password">
+            Password<span className="text-danger">*</span>:
+          </label>
           <input
             type="password"
+            id="password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-required="true"
           />
         </div>
-        <div>
-          <label>Bio (Optional):</label>
+
+        {/* Bio */}
+        <div className="form-group">
+          <label htmlFor="bio">Bio (Optional):</label>
           <input
             type="text"
+            id="bio"
+            name="bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             maxLength="160"
+            aria-describedby="bioHelp"
           />
+          <small id="bioHelp" className="form-text">
+            Maximum 160 characters.
+          </small>
         </div>
-        <div>
-          <label>Avatar URL (Optional):</label>
+
+        {/* Avatar URL */}
+        <div className="form-group">
+          <label htmlFor="avatarUrl">Avatar URL (Optional):</label>
           <input
             type="text"
+            id="avatarUrl"
+            name="avatarUrl"
             value={avatarUrl}
             onChange={(e) => setAvatarUrl(e.target.value)}
+            aria-describedby="avatarUrlHelp"
           />
+          <small id="avatarUrlHelp" className="form-text">
+            Provide a URL for your avatar image.
+          </small>
         </div>
-        <div>
-          <label>Avatar Alt (Optional):</label>
+
+        {/* Avatar Alt Text */}
+        <div className="form-group">
+          <label htmlFor="avatarAlt">Avatar Alt (Optional):</label>
           <input
             type="text"
+            id="avatarAlt"
+            name="avatarAlt"
             value={avatarAlt}
             onChange={(e) => setAvatarAlt(e.target.value)}
             maxLength="120"
+            aria-describedby="avatarAltHelp"
           />
+          <small id="avatarAltHelp" className="form-text">
+            Alternative text for your avatar image.
+          </small>
         </div>
-        <div>
-          <label>Banner URL (Optional):</label>
+
+        {/* Banner URL */}
+        <div className="form-group">
+          <label htmlFor="bannerUrl">Banner URL (Optional):</label>
           <input
             type="text"
+            id="bannerUrl"
+            name="bannerUrl"
             value={bannerUrl}
             onChange={(e) => setBannerUrl(e.target.value)}
+            aria-describedby="bannerUrlHelp"
           />
+          <small id="bannerUrlHelp" className="form-text">
+            Provide a URL for your banner image.
+          </small>
         </div>
-        <div>
-          <label>Banner Alt (Optional):</label>
+
+        {/* Banner Alt Text */}
+        <div className="form-group">
+          <label htmlFor="bannerAlt">Banner Alt (Optional):</label>
           <input
             type="text"
+            id="bannerAlt"
+            name="bannerAlt"
             value={bannerAlt}
             onChange={(e) => setBannerAlt(e.target.value)}
             maxLength="120"
+            aria-describedby="bannerAltHelp"
           />
+          <small id="bannerAltHelp" className="form-text">
+            Alternative text for your banner image.
+          </small>
         </div>
-        <div>
-          <label>Venue Manager:</label>
+
+        {/* Venue Manager Checkbox */}
+        <div className="form-group form-check">
           <input
             type="checkbox"
+            id="venueManager"
+            name="venueManager"
             checked={venueManager}
             onChange={(e) => setVenueManager(e.target.checked)}
+            className="form-check-input"
           />
+          <label htmlFor="venueManager" className="form-check-label">
+            Venue Manager
+          </label>
         </div>
-        <button type="submit">Register</button>
 
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        {/* Register Button */}
+        <button type="submit" className="register-button">
+          Register
+        </button>
       </form>
     </div>
   );

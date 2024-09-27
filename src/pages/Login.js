@@ -80,28 +80,56 @@ function Login() {
 
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={handleLogin}>
+      <form className="login-form" onSubmit={handleLogin} noValidate>
         <h2>Login</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <div>
-          <label htmlFor="email">Email:</label>{" "}
+
+        {/* Email */}
+        <div className="form-group">
+          <label htmlFor="email">
+            Email<span className="text-danger">*</span>:
+          </label>
           <input
             type="email"
+            id="email"
+            name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            aria-required="true"
+            aria-describedby="emailHelp"
           />
+          <small id="emailHelp" className="form-text">
+            We'll never share your email with anyone else.
+          </small>
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>{" "}
+
+        {/* Password */}
+        <div className="form-group">
+          <label htmlFor="password">
+            Password<span className="text-danger">*</span>:
+          </label>
           <input
             type="password"
+            id="password"
+            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-required="true"
+            aria-describedby="passwordHelp"
           />
+          <small id="passwordHelp" className="form-text">
+            Enter your password.
+          </small>
         </div>
-        <button type="submit">Login</button>
+
+        {/* Login Button */}
+        <button type="submit" className="login-button">
+          Login
+        </button>
+
+        {/* Register Link */}
         <div className="register-link">
           <p>
             Don't have an account? <Link to="/register">Register here</Link>
