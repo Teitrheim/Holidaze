@@ -84,7 +84,7 @@ function VenuePage() {
     fetchBookings();
   }, [id]);
 
-  // Load reviews from localStorage on component mount
+  // Load reviews from localStorage
   useEffect(() => {
     const storedReviews =
       JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
@@ -155,7 +155,7 @@ function VenuePage() {
     };
 
     try {
-      // Storing reviews in localStorage for now
+      // Storing reviews
       const storedReviews =
         JSON.parse(localStorage.getItem(`reviews_${id}`)) || [];
       const updatedReviews = [...storedReviews, reviewData];
@@ -168,11 +168,11 @@ function VenuePage() {
     } catch (error) {}
   };
 
-  // Render the image carousel
+  // Render the image carousel without controls and indicators
   const renderCarousel = () => {
     if (!venue || !venue.media || venue.media.length === 0) return null;
     return (
-      <Carousel>
+      <Carousel controls={false} indicators={false}>
         {venue.media.map((mediaItem, index) => (
           <Carousel.Item key={index}>
             <img
