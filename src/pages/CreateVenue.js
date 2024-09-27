@@ -110,8 +110,8 @@ function CreateVenue() {
           <div className="card-header">Venue Details</div>
           <div className="card-body">
             <div className="row mb-3 align-items-center">
-              <label htmlFor="name" className="col-sm-3 col-form-label">
-                Name<span className="text-danger">*</span>:
+              <label htmlFor="name" className="visually-hidden">
+                Name:
               </label>
               <div className="col-sm-9">
                 <input
@@ -137,8 +137,8 @@ function CreateVenue() {
 
             {/* Description */}
             <div className="row mb-3 align-items-center">
-              <label htmlFor="description" className="col-sm-3 col-form-label">
-                Description<span className="text-danger">*</span>:
+              <label htmlFor="description" className="visually-hidden">
+                Description:
               </label>
               <div className="col-sm-9">
                 <textarea
@@ -166,8 +166,8 @@ function CreateVenue() {
 
             {/* Price and Max Guests */}
             <div className="row mb-3 align-items-center">
-              <label htmlFor="price" className="col-sm-3 col-form-label">
-                Price per Night<span className="text-danger">*</span>:
+              <label htmlFor="price" className="visually-hidden">
+                Price per Night:
               </label>
               <div className="col-sm-3">
                 <input
@@ -190,8 +190,8 @@ function CreateVenue() {
                 )}
               </div>
               {/* Max Guests */}
-              <label htmlFor="maxGuests" className="col-sm-3 col-form-label">
-                Max Guests<span className="text-danger">*</span>:
+              <label htmlFor="maxGuests" className="visually-hidden">
+                Max Guests:
               </label>
               <div className="col-sm-3">
                 <input
@@ -219,7 +219,7 @@ function CreateVenue() {
 
             {/* Media URL */}
             <div className="row mb-3 align-items-center">
-              <label htmlFor="mediaUrl" className="col-sm-3 col-form-label">
+              <label htmlFor="mediaUrl" className="visually-hidden">
                 Image URL:
               </label>
               <div className="col-sm-9">

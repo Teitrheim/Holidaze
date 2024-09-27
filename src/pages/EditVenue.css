@@ -4,7 +4,6 @@
 }
 
 .card-header {
-    background-color: var(--primary-color);
     color: #fff;
     font-weight: bold;
 }
