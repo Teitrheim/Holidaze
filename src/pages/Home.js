@@ -33,8 +33,12 @@ function Home() {
       <div className="banner-image">
         <img src={banner} alt="Scenic View" />
         <div className="search-container">
+          <label htmlFor="destination" className="visually-hidden">
+            Destination:
+          </label>
           <input
             type="text"
+            id="destination"
             className="form-control"
             placeholder="Enter your destination"
             value={searchTerm}
@@ -104,8 +108,13 @@ function Home() {
         <div className="explore-image-container">
           <img src={hardangerImage} alt="Hardanger" className="img-fluid" />
           <div className="explore-text-overlay">
-            <h2>Still figuring out what to do in Norway?</h2>
-            <p>Enjoy the comfort of these places while you decide.</p>
+            <h2 className="homepage-heading">
+              Still figuring out what to do in Norway?
+            </h2>
+            <p className="homepage-paragraph">
+              Enjoy the comfort of these places while you decide.
+            </p>
+
             <Link to="/accommodation">
               <button className="btn btn-success">See all locations</button>
             </Link>
