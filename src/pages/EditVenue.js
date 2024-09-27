@@ -7,6 +7,7 @@ function EditVenue() {
   const navigate = useNavigate();
   const [venueData, setVenueData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [touched, setTouched] = useState({});
 
   useEffect(() => {
     const fetchVenue = async () => {
@@ -158,59 +159,105 @@ function EditVenue() {
           <div className="card-body">
             {/* Name */}
             <div className="mb-3">
-              <label className="form-label">
-                Name<span className="text-danger">*</span>:
+              <label htmlFor="name" className="visually-hidden">
+                Name<span className="text-danger">*</span>
               </label>
               <input
                 type="text"
+                id="name"
                 name="name"
-                className="form-control"
+                className={`form-control ${
+                  touched.name && !venueData.name ? "is-invalid" : ""
+                }`}
                 value={venueData.name}
                 onChange={handleChange}
+                onBlur={() => setTouched({ ...touched, name: true })}
                 required
+                placeholder="Enter the venue name"
               />
+              {touched.name && !venueData.name && (
+                <div className="invalid-feedback">
+                  Please enter the venue name.
+                </div>
+              )}
             </div>
+
             {/* Description */}
             <div className="mb-3">
-              <label className="form-label">
-                Description<span className="text-danger">*</span>:
+              <label htmlFor="description" className="visually-hidden">
+                Description<span className="text-danger">*</span>
               </label>
               <textarea
                 name="description"
-                className="form-control"
+                id="description"
+                className={`form-control ${
+                  touched.description && !venueData.description
+                    ? "is-invalid"
+                    : ""
+                }`}
                 value={venueData.description}
                 onChange={handleChange}
+                onBlur={() => setTouched({ ...touched, description: true })}
                 required
                 rows="4"
+                placeholder="Enter a description"
               />
+              {touched.description && !venueData.description && (
+                <div className="invalid-feedback">
+                  Please enter a description.
+                </div>
+              )}
             </div>
+
             {/* Price and Max Guests */}
             <div className="row">
               <div className="col-md-6 mb-3">
-                <label className="form-label">
-                  Price per Night<span className="text-danger">*</span>:
+                <label htmlFor="price" className="visually-hidden">
+                  Price per Night<span className="text-danger">*</span>
                 </label>
                 <input
                   type="number"
+                  id="price"
                   name="price"
-                  className="form-control"
+                  className={`form-control ${
+                    touched.price && !venueData.price ? "is-invalid" : ""
+                  }`}
                   value={venueData.price}
                   onChange={handleChange}
+                  onBlur={() => setTouched({ ...touched, price: true })}
                   required
+                  placeholder="e.g., 100"
                 />
+                {touched.price && !venueData.price && (
+                  <div className="invalid-feedback">
+                    Please enter the price per night.
+                  </div>
+                )}
               </div>
               <div className="col-md-6 mb-3">
-                <label className="form-label">
-                  Maximum Guests<span className="text-danger">*</span>:
+                <label htmlFor="maxGuests" className="visually-hidden">
+                  Maximum Guests<span className="text-danger">*</span>
                 </label>
                 <input
                   type="number"
+                  id="maxGuests"
                   name="maxGuests"
-                  className="form-control"
+                  className={`form-control ${
+                    touched.maxGuests && !venueData.maxGuests
+                      ? "is-invalid"
+                      : ""
+                  }`}
                   value={venueData.maxGuests}
                   onChange={handleChange}
+                  onBlur={() => setTouched({ ...touched, maxGuests: true })}
                   required
+                  placeholder="e.g., 4"
                 />
+                {touched.maxGuests && !venueData.maxGuests && (
+                  <div className="invalid-feedback">
+                    Please enter the maximum number of guests.
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -222,13 +269,17 @@ function EditVenue() {
           <div className="card-body">
             {/* Image URL */}
             <div className="mb-3">
-              <label className="form-label">Image URL:</label>
+              <label htmlFor="mediaUrl" className="visually-hidden">
+                Image URL
+              </label>
               <input
                 type="text"
+                id="mediaUrl"
                 name="url"
                 className="form-control"
                 value={venueData.media[0]?.url || ""}
                 onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
               />
             </div>
             {/* Image Preview */}
@@ -244,13 +295,17 @@ function EditVenue() {
             )}
             {/* Alt Text */}
             <div className="mb-3">
-              <label className="form-label">Image Alt Text:</label>
+              <label htmlFor="alt" className="visually-hidden">
+                Image Alt Text
+              </label>
               <input
                 type="text"
+                id="alt"
                 name="alt"
                 className="form-control"
                 value={venueData.media[0]?.alt || ""}
                 onChange={handleChange}
+                placeholder="Enter image alt text"
               />
             </div>
           </div>
