@@ -45,17 +45,13 @@ function Register() {
         throw new Error("Failed to register");
       }
 
-      const data = await response.json();
-      console.log("Registration successful:", data);
-
       setSuccessMessage(
         "Registration successful! Redirecting to login page..."
       );
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
